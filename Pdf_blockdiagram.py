@@ -815,7 +815,7 @@ Complete offline system to extract diagrams from PDFs, convert to structured gra
 - ✅ Detect blocks, arrows, connectors using OpenCV
 - ✅ Build graph representation (nodes + edges)
 - ✅ Generate explanations via local LLM (Ollama)
-- ✅ Multi-diagram support per page
+- ✅ Multi-diagram support per page  
 - ✅ Output JSON, text, and markdown reports
 
 ## Installation (Offline / Air-Gapped)

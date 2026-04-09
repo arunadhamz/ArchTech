@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchTech AI Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #ffffff;
+            --surface-color: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #6d28d9;    
+            --accent-secondary: #0ea5e9;  
+            --accent-tertiary: #10b981;   
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius-lg: 16px;
+            --border-radius-md: 12px;
+            --transition-speed: 0.3s;
+            --mono: 'Space Mono', monospace;
+            --syne: 'Syne', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--syne);
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo-sub {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        nav a:hover { color: var(--accent-primary); }
+
+        section {
+            padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--syne);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .card:hover { box-shadow: var(--shadow-lg); }
+
+        /* Buttons Inputs */
+        .btn {
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-md);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+            font-family: var(--syne);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .btn:hover { background-color: var(--accent-primary); color: white; }
+        .btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+        
+        .input-group { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .input-group input, .input-group textarea {
+            flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md); font-family: inherit; font-size: 0.95rem;
+            transition: border-color var(--transition-speed);
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none; border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+        }
+
+        /* Hero Badges */
+        .hero-badges {
+            display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        .badge {
+            font-family: var(--mono); font-size: 0.75rem; padding: 0.3rem 0.8rem;
+            background: var(--text-primary); color: white; border-radius: 4px; text-transform: uppercase;
+        }
+
+        /* grids & workflows */
+        .presenter-grid, .agent-grid, .impact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
+        }
+
+        .workflow-container {
+            display: flex; align-items: center; justify-content: space-between; overflow-x: auto; padding: 1rem; gap: 1rem;
+        }
+
+        .workflow-node {
+            flex: 0 0 auto; width: 170px; background: #ffffff; border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md); padding: 1.5rem 1rem; text-align: center;
+            box-shadow: var(--shadow-sm); position: relative; z-index: 2; transition: all 0.3s ease;
+        }
+        .workflow-title { font-family: var(--syne); font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+        .workflow-sub { font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px; }
+        .workflow-arrow { flex: 1 1 auto; min-width: 30px; height: 2px; background-color: var(--border-color); position: relative; z-index: 1; }
+        .workflow-active .workflow-node { border-color: var(--accent-primary); background-color: #f5f3ff; }
+        .workflow-active .workflow-arrow { background-color: var(--accent-primary); }
+
+        /* Live Demo Split */
+        .live-demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media(max-width: 768px) { .live-demo-grid { grid-template-columns: 1fr; } }
+        
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--surface-color);
+            transition: border-color var(--transition-speed);
+        }
+        .upload-zone:hover { border-color: var(--accent-secondary); }
+        .terminal-box {
+            background: #0f172a;
+            border-radius: var(--border-radius-md);
+            padding: 1.5rem;
+            min-height: 300px;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Block Diagram Parsing */
+        .structured-output {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: var(--border-radius-md);
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            min-height: 250px;
+            overflow-y: auto;
+        }
+        .key { color: #38bdf8; font-weight: bold; }
+        .string { color: #a3e635; }
+
+        /* Traceability Matrix Dashboard */
+        .trace-dashboard {
+            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem;
+            background: #ffffff; border-radius: var(--border-radius-lg); padding: 2.5rem;
+            border: 1px solid var(--border-color); box-shadow: var(--shadow-md);
+        }
+        @media(max-width: 768px) { 
+            .trace-dashboard { grid-template-columns: 1fr; }
+            .conn-arrow { transform: rotate(90deg); text-align: center; margin: 1rem 0; }
+        }
+        .trace-col { display: flex; flex-direction: column; gap: 1rem; }
+        .trace-col-title { font-family: var(--syne); font-weight: 800; font-size: 1.1rem; margin-bottom: 1rem; text-align: center; color: var(--accent-primary); }
+        .trace-node {
+            padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--border-radius-md);
+            background: #f8fafc; cursor: pointer; transition: all 0.2s ease; position: relative;
+        }
+        .trace-node:hover { border-color: var(--accent-secondary); }
+        .node-id { font-family: var(--mono); font-size: 0.75rem; font-weight: bold; color: var(--accent-secondary); margin-bottom: 0.25rem;}
+        .node-desc { font-size: 0.85rem; color: var(--text-primary); }
+        .conn-arrow { font-size: 2rem; color: var(--border-color); transition: color 0.3s; }
+        .trace-active-input { border-color: var(--accent-primary); background: #f5f3ff; box-shadow: 0 0 10px rgba(109, 40, 217, 0.2); }
+        .trace-active-output { border-color: var(--accent-tertiary); background: #f0fdf4; box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+        .trace-active-arrow { color: var(--accent-primary); }
+
+        /* Data Visualization Graphics */
+        .impact-card { text-align: center; padding: 2rem; }
+        .metric-value {
+            font-family: var(--syne); font-size: 2.5rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;
+        }
+        .metric-label { font-family: var(--mono); font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .bar-chart-container { margin-top: 2rem; }
+        .bar-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .bar-label { font-size: 0.9rem; font-weight: 500; width: 140px; text-align: right; }
+        .bar-track { flex: 1; background: var(--surface-color); height: 20px; border-radius: 10px; overflow: hidden; position: relative;}
+        .bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease-out; }
+        .fill-purple { background: linear-gradient(90deg, #8b5cf6, var(--accent-primary)); }
+        .fill-green { background: linear-gradient(90deg, #34d399, var(--accent-tertiary)); }
+        .fill-red { background: linear-gradient(90deg, #f87171, #dc2626); }
+        
+        .timeline { display: flex; flex-direction: column; gap: 1.5rem; position: relative; padding-left: 2rem;}
+        .timeline::before { content:''; position:absolute; left: 0px; top:0; bottom:0; width:3px; background:var(--border-color); }
+        .phase-step { position: relative; background: #ffffff; padding: 1.5rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-color); }
+        .phase-step::before {
+            content: ''; position: absolute; left: -2.7rem; top: 1.5rem; width: 1rem; height: 1rem; 
+            background: var(--accent-primary); border-radius: 50%; border: 3px solid #ffffff; box-shadow: 0 0 0 2px var(--border-color);
+        }
+        .phase-title { font-family: var(--syne); font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .phase-desc { font-size: 0.9rem; color: var(--text-secondary); }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container nav-content">
+            <div>
+                <div class="logo">ArchTech AI</div>
+                <div class="logo-sub">ByteForge · Process AI</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#pipeline">System Flow</a></li>
+                    <li><a href="#live-demo">Live Simulation</a></li>
+                    <li><a href="#traceability">Traceability</a></li>
+                    <li><a href="#diagram">Diagram OCR</a></li>
+                    <li><a href="#impact">Business Impact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <section id="hero" style="text-align: center; padding: 6rem 0 4rem 0;">
+            <div class="hero-badges">
+                <span class="badge" style="background:#10b981;">3,120 Hours Saved / Year</span>
+                <span class="badge" style="background:#6d28d9;">82% Error Reduction</span>
+                <span class="badge" style="background:#0ea5e9;">60% Faster Delivery</span>
+            </div>
+            <h1 style="font-family: var(--syne); font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1;">
+                AI-Driven Project Artifact <br><span style="color: var(--accent-primary);">Management System</span>
+            </h1>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 750px; margin: 0 auto 2.5rem; line-height: 1.7;">
+                Automate generation of SyRS, HRS, SRS, and SDD documents.<br>
+                Establish end-to-end bi-directional traceability.<br>
+                Real-time synchronization across hardware, software, and system workflows.
+            </p>
+            <button class="btn" onclick="document.getElementById('live-demo').scrollIntoView();" style="padding: 1rem 2.5rem; font-size: 1.1rem; border-radius: 8px;">Run Interactive Demo</button>
+        </section>
+
+        <!-- System Architecture Pipeline -->
+        <section id="pipeline">
+            <div class="section-header">
+                <h2>RAG-Driven Architecture Flow</h2>
+                <p>A central command center utilizing PyPDF2, NLP, and LLaMA 70B to parse inputs and generate output artifacts.</p>
+            </div>
+            
+            <div class="card">
+                <div class="workflow-container" id="workflow-vis">
+                    <div class="workflow-node" id="wn-1">
+                        <div class="workflow-icon">📄</div>
+                        <div class="workflow-title">Input Docs</div>
+                        <div class="workflow-sub">TechSpec, ICD, IRS</div>
+                    </div>
+                    <div class="workflow-arrow"></div>
+                    <div class="workflow-node" id="wn-2">
+                        <div class="workflow-icon">📖</div>
+                        <div class="workflow-title">Processing</div>
+                        <div class="workflow-sub">PyPDF2 + spaCy NLP</div>
+                    </div>
+                    <div class="workflow-arrow"></div>
+                    <div class="workflow-node" id="wn-3">
+                        <div class="workflow-icon">🧠</div>
+                        <div class="workflow-title">AI / ML Core</div>
+                        <div class="workflow-sub">LLaMA 70B & FAISS</div>
+                    </div>
+                    <div class="workflow-arrow"></div>
+                    <div class="workflow-node" id="wn-4">
+                        <div class="workflow-icon">🔀</div>
+                        <div class="workflow-title">Orchestration</div>
+                        <div class="workflow-sub">LangChain Engine</div>
+                    </div>
+                    <div class="workflow-arrow"></div>
+                    <div class="workflow-node" id="wn-5">
+                        <div class="workflow-icon">📗</div>
+                        <div class="workflow-title">Final Artifacts</div>
+                        <div class="workflow-sub">SyRS, HRS, SRS, SDD</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🆕 Live Document Demo Section -->
+        <section id="live-demo">
+            <div class="section-header">
+                <h2>Live Generation Workspace</h2>
+                <p>Simulate uploading technical specifications and observing the real-time AI parsing and output generation.</p>
+            </div>
+
+            <div class="card live-demo-grid">
+                <div>
+                    <h3 style="font-family: var(--syne); margin-bottom: 1rem; font-size: 1.3rem;">Upload Requirements</h3>
+                    <div class="upload-zone" id="upload-zone">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem; font-family: var(--syne); font-size: 1.1rem;">TechSpec-v2_Draft.pdf</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">5.2 MB • System Interface Control Docs, Thermal Limits</p>
+                        <button class="btn" id="btn-process" onclick="runLiveGeneration()">Process via LLaMA 70B</button>
+                    </div>
+                    <div id="download-zone" style="display: none; margin-top: 1.5rem; padding: 1.5rem; background: #ecfdf5; border: 1px solid #10b981; border-radius: var(--border-radius-md); text-align: center;">
+                        <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">✅</span>
+                        <h4 style="color: #065f46; font-family:var(--syne); margin-bottom: 0.5rem;">Document successfully generated</h4>
+                        <button class="btn" style="background-color: #10b981; width: 100%;">Download System Requirements Spec (SyRS)</button>
+                        <button class="btn btn-outline" style="width: 100%; margin-top: 0.5rem; border-color: #10b981; color: #065f46;">Download Hardware Requirements (HRS)</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column;">
+                    <div style="background: #cbd5e1; padding: 0.5rem 1rem; border-top-left-radius: var(--border-radius-md); border-top-right-radius: var(--border-radius-md); font-family: var(--mono); font-size: 0.75rem; color: #334155; text-transform: uppercase;">
+                        Backend LangChain Execution Log
+                    </div>
+                    <div class="terminal-box" id="terminal-box">
+                        <span style="color: #64748b;">$</span> Ready to accept input streams.<br>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Traceability Matrix -->
+        <section id="traceability">
+            <div class="section-header">
+                <h2>Bi-directional Traceability Matrix</h2>
+                <p>Click any input requirement to visually trace its propagation across downstream system artifacts, highlighting coverage and detecting gaps.</p>
+            </div>
+
+            <div class="trace-dashboard">
+                <div class="trace-col">
+                    <div class="trace-col-title">Input Sources (ICD / IRS)</div>
+                    <div class="trace-node" onclick="visualizeTrace('req-gnd')">
+                        <div class="node-id">[IRS-GND-01]</div>
+                        <div class="node-desc">Ground station sync requires latency < 50ms per frame.</div>
+                    </div>
+                    <div class="trace-node" onclick="visualizeTrace('req-pwr')">
+                        <div class="node-id">[ICD-PWR-04]</div>
+                        <div class="node-desc">Payload power budget max 120W during transmission.</div>
+                    </div>
+                    <div class="trace-node" onclick="visualizeTrace('req-gap')">
+                        <div class="node-id">[ICD-COMM-02]</div>
+                        <div class="node-desc">UHF Antenna frequency mapping configuration.</div>
+                    </div>
+                </div>
+
+                <div class="conn-arrow" id="trace-arrow">➔</div>
+
+                <div class="trace-col">
+                    <div class="trace-col-title">Generated Artifacts (SyRS / HRS)</div>
+                    <div class="trace-node" id="out-srs1">
+                        <div class="node-id">[SyRS-1.0] / [SRS-4.2]</div>
+                        <div class="node-desc">Network module optimized for low-latency UDP streams.</div>
+                    </div>
+                    <div class="trace-node" id="out-hrs1">
+                        <div class="node-id">[HRS-2.1]</div>
+                        <div class="node-desc">Power converter selected: 150W peak, 120W nominal rating.</div>
+                    </div>
+                    <div class="trace-node" id="out-gap">
+                        <div class="node-id" style="color:var(--text-secondary);">[Coverage Gap]</div>
+                        <div class="node-desc" style="color:#ef4444; font-weight:600;">⚠ Orphaned Input: No downstream artifact linked.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🆕 Block Diagram Understanding -->
+        <section id="diagram">
+            <div class="section-header">
+                <h2>Block Diagram Understanding (Vision-Language Module)</h2>
+                <p>Simulate how ArchTech parses CAD files or architecture diagrams and extracts structured system nodes and parameters.</p>
+            </div>
+
+            <div class="card live-demo-grid">
+                <div>
+                    <h3 style="font-family: var(--syne); margin-bottom: 0.5rem; font-size: 1.2rem;">Diagram Description Input</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Simulate the output of an OCR/Vision model scanning a hardware block diagram.
+                    </p>
+                    <div class="input-group" style="flex-direction: column;">
+                        <textarea id="diagram-input" rows="5">Block Diagram Input: 
+[Control Unit] sends commands to [Servo Motor]. 
+[Servo Motor] links physically to [Actuator Arm].
+[Power Pack] supplies 24V to [Control Unit] and [Servo Motor].</textarea>
+                        <button class="btn" style="align-self: flex-start;" onclick="simulateDiagramParse()" id="diagram-btn">Extract Structured Data</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="background: #cbd5e1; padding: 0.5rem 1rem; border-top-left-radius: var(--border-radius-md); border-top-right-radius: var(--border-radius-md); font-family: var(--mono); font-size: 0.75rem; color: #334155; text-transform: uppercase;">
+                        JSON Extracted Output
+                    </div>
+                    <div class="structured-output" id="diagram-output">
+                    <span style="color:#64748b;">// Extracted system boundaries will appear here</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business & Technical Impact -->
+        <section id="impact">
+            <div class="section-header">
+                <h2>Quantified Project Impact</h2>
+                <p>Expected outcomes across technical execution, business metrics, and return on investment.</p>
+            </div>
+
+            <div class="impact-grid" style="margin-bottom: 2rem;">
+                <div class="card impact-card">
+                    <div class="metric-value">Rs. 1.76 Cr</div>
+                    <div class="metric-label">Annual Cost Savings</div>
+                </div>
+                <div class="card impact-card">
+                    <div class="metric-value">>90%</div>
+                    <div class="metric-label">System Uptime & Accuracy</div>
+                </div>
+                <div class="card impact-card">
+                    <div class="metric-value">< 5 Min</div>
+                    <div class="metric-label">Generation Time per Doc</div>
+                </div>
+                <div class="card impact-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Requirement Coverage</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="font-family: var(--syne); font-size: 1.25rem;">Before vs. After ArchTech AI</h3>
+                <div class="bar-chart-container">
+                    <div class="bar-row">
+                        <div class="bar-label">Error Rate</div>
+                        <div class="bar-track"><div class="bar-fill fill-red" style="width: 28%;"></div></div>
+                        <div style="font-family: var(--mono); font-size: 0.8rem; font-weight: bold; width: 40px;">28%</div>
+                    </div>
+                    <div class="bar-row">
+                        <div class="bar-label">Optimized Errors</div>
+                        <div class="bar-track"><div class="bar-fill fill-green" style="width: 5%;"></div></div>
+                        <div style="font-family: var(--mono); font-size: 0.8rem; font-weight: bold; width: 40px; color:var(--accent-tertiary);">< 5%</div>
+                    </div>
+                    <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 1.5rem 0;">
+                    <div class="bar-row">
+                        <div class="bar-label">Old Delivery Time</div>
+                        <div class="bar-track"><div class="bar-fill fill-purple" style="width: 100%; opacity: 0.4;"></div></div>
+                        <div style="font-family: var(--mono); font-size: 0.8rem; font-weight: bold; width: 60px;">15 Days</div>
+                    </div>
+                    <div class="bar-row">
+                        <div class="bar-label">ArchTech Delivery</div>
+                        <div class="bar-track"><div class="bar-fill fill-purple" style="width: 40%;"></div></div>
+                        <div style="font-family: var(--mono); font-size: 0.8rem; font-weight: bold; width: 60px; color:var(--accent-primary);">6 Days</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Roadmap -->
+        <section id="roadmap">
+            <div class="section-header">
+                <h2>Development Roadmap</h2>
+                <p>Structured phases from foundation setup to full traceability automation.</p>
+            </div>
+
+            <div class="card timeline">
+                <div class="phase-step">
+                    <div class="phase-title">Phase 1: Foundation & Setup</div>
+                    <div class="phase-desc">Set up LangChain, LLaMA 70B endpoints. Establish synthetic dataset of TechSpec, ICD, and IRS examples with air-gapped environments.</div>
+                </div>
+                <div class="phase-step">
+                    <div class="phase-title">Phase 2: RAG Engine Development</div>
+                    <div class="phase-desc">Implement PDF parsing via PyPDF2 and spaCy. Integrate sentence-transformers for vector embeddings stored in FAISS. Fine-tune ArchTech_ai 1B model.</div>
+                </div>
+                <div class="phase-step">
+                    <div class="phase-title">Phase 3: Frontend & Dashboarding</div>
+                    <div class="phase-desc">Build role-based Dashboards using React, TailwindCSS, and Shadcn UI. Establish WebSocket hooks for real-time document sync.</div>
+                </div>
+                <div class="phase-step" style="border-color: var(--accent-primary); background: #f5f3ff;">
+                    <div class="phase-title" style="color: var(--accent-primary);">Phase 4: Traceability & Automation (Current Phase)</div>
+                    <div class="phase-desc">Deploy intelligent AI agents (Document Generator, Change Propagator). Construct bidirectional Artifact linking and validation engine.</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ArchTech AI. Powered by ByteForge | Air-gapped capable, On-Premise & Cloud.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts for Simulation -->
+    <script>
+        // Automatic pipeline vis on load
+        setTimeout(() => { animateWorkflow(); }, 500);
+
+        async function animateWorkflow() {
+            const nodes = document.querySelectorAll('.workflow-node');
+            const workflowVis = document.getElementById('workflow-vis');
+            
+            workflowVis.classList.remove('workflow-active');
+            nodes.forEach(n => {
+                n.style.borderColor = 'var(--border-color)';
+                n.style.backgroundColor = '#ffffff';
+                n.style.transform = 'scale(1)';
+            });
+
+            for(let i = 0; i < nodes.length; i++) {
+                nodes[i].style.borderColor = 'var(--accent-primary)';
+                nodes[i].style.backgroundColor = '#f5f3ff';
+                nodes[i].style.transform = 'scale(1.05)';
+                await new Promise(r => setTimeout(r, 600));
+                if (i < nodes.length - 1) { nodes[i].style.transform = 'scale(1)'; }
+            }
+            await new Promise(r => setTimeout(r, 600));
+            nodes.forEach(n => n.style.transform = 'scale(1)');
+        }
+
+        // Live Demo Simulation
+        async function runLiveGeneration() {
+            const btn = document.getElementById('btn-process');
+            const term = document.getElementById('terminal-box');
+            const downloadZone = document.getElementById('download-zone');
+            
+            btn.disabled = true;
+            btn.textContent = "Processing Document...";
+            downloadZone.style.display = 'none';
+
+            const logs = [
+                "<span style='color:#0ea5e9;'>[PyPDF2]</span> Extracting 214 pages from TechSpec-v2_Draft.pdf...",
+                "<span style='color:#10b981;'>[spaCy]</span> Cleaning textual anomalies and sectioning by headers...",
+                "<span style='color:#6d28d9;'>[Sentence-Transformers]</span> Vectorizing chunks via all-MiniLM-L6-v2. Dimension: 384...",
+                "Indexing into FAISS Vector Database...",
+                "<span style='color:#f59e0b;'>[Orchestrator]</span> Invoking LLaMA 70B interface to generate System Requirements Specification (SyRS).",
+                "<span style='color:#ec4899;'>[Traceability Agent]</span> Cross-referencing generated SyRS bounds with base FAISS nodes... 100% Match.",
+                "<span style='color:#10b981;'>[SUCCESS]</span> SyRS and HRS successfully built. Closing execution thread."
+            ];
+
+            for (let log of logs) {
+                term.innerHTML += `<br><span style="color:#64748b;">></span> ` + log;
+                term.scrollTop = term.scrollHeight;
+                await new Promise(r => setTimeout(r, 1200 + Math.random() * 800));
+            }
+
+            btn.disabled = false;
+            btn.textContent = "Process via LLaMA 70B";
+            downloadZone.style.display = 'block';
+        }
+
+        // Diagram OCR Simulation
+        function simulateDiagramParse() {
+            const btn = document.getElementById('diagram-btn');
+            const output = document.getElementById('diagram-output');
+            
+            btn.disabled = true;
+            btn.textContent = "Analyzing Geometry & Text...";
+            output.innerHTML = "<span style='color:#64748b;'>// Vision LLM processing image tokens...</span>";
+
+            setTimeout(() => {
+                const jsonObj = {
+                    "document_type": "Hardware Block Diagram",
+                    "extracted_nodes": [
+                        {"node_id": "ND-01", "name": "Control Unit", "type": "Microcontroller"},
+                        {"node_id": "ND-02", "name": "Servo Motor", "type": "Actuator", "requires": "24V"},
+                        {"node_id": "ND-03", "name": "Actuator Arm", "type": "Mechanical Linkage"},
+                        {"node_id": "ND-04", "name": "Power Pack", "type": "Power Supply", "outputs": "24V"}
+                    ],
+                    "extracted_edges": [
+                        {"source": "ND-01", "target": "ND-02", "type": "Signal/Command"},
+                        {"source": "ND-02", "target": "ND-03", "type": "Mechanical Tension"},
+                        {"source": "ND-04", "target": "ND-01", "type": "Power Link"},
+                        {"source": "ND-04", "target": "ND-02", "type": "Power Link"}
+                    ]
+                };
+
+                const jsonStr = JSON.stringify(jsonObj, null, 2);
+                let highlighted = jsonStr
+                    .replace(/"([^"]+)":/g, '<span class="key">"$1":</span>')
+                    .replace(/: "([^"]+)"/g, ': <span class="string">"$1"</span>');
+
+                output.innerHTML = highlighted;
+                btn.disabled = false;
+                btn.textContent = "Extract Structured Data";
+            }, 3000);
+        }
+
+        // Traceability Matrix Interactive logic
+        function visualizeTrace(reqId) {
+            document.querySelectorAll('.trace-node').forEach(el => {
+                el.classList.remove('trace-active-input', 'trace-active-output');
+                el.style.opacity = '1';
+            });
+            document.getElementById('trace-arrow').classList.remove('trace-active-arrow');
+
+            const evtTarget = event.currentTarget;
+            evtTarget.classList.add('trace-active-input');
+
+            let outTargets = [];
+            if(reqId === 'req-gnd') outTargets = [document.getElementById('out-srs1')];
+            else if (reqId === 'req-pwr') outTargets = [document.getElementById('out-hrs1')];
+            else if (reqId === 'req-gap') outTargets = [document.getElementById('out-gap')];
+
+            document.getElementById('trace-arrow').classList.add('trace-active-arrow');
+
+            document.querySelectorAll('.trace-node').forEach(el => {
+                if(!el.classList.contains('trace-active-input') && !outTargets.includes(el)) {
+                    el.style.opacity = '0.3';
+                }
+            });
+            outTargets.forEach(t => t.classList.add('trace-active-output'));
+        }
+    </script>
+</body>
+</html>

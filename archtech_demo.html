@@ -239,6 +239,13 @@
         }
         .key { color: #38bdf8; font-weight: bold; }
         .string { color: #a3e635; }
+        @keyframes scan-line {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; box-shadow: 0 0 15px rgba(16, 185, 129, 0.8); }
+            90% { opacity: 1; box-shadow: 0 0 15px rgba(16, 185, 129, 0.8); }
+            100% { top: 100%; opacity: 0; }
+        }
+        .scanning-active { animation: scan-line 2.5s ease-in-out infinite; }
 
         /* Traceability Matrix Dashboard */
         .trace-dashboard {
@@ -396,8 +403,8 @@
                     <div id="download-zone" style="display: none; margin-top: 1.5rem; padding: 1.5rem; background: #ecfdf5; border: 1px solid #10b981; border-radius: var(--border-radius-md); text-align: center;">
                         <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">✅</span>
                         <h4 style="color: #065f46; font-family:var(--syne); margin-bottom: 0.5rem;">Document successfully generated</h4>
-                        <button class="btn" style="background-color: #10b981; width: 100%;">Download System Requirements Spec (SyRS)</button>
-                        <button class="btn btn-outline" style="width: 100%; margin-top: 0.5rem; border-color: #10b981; color: #065f46;">Download Hardware Requirements (HRS)</button>
+                        <button class="btn" onclick="downloadSimulation('SyRS_Generated.md')" style="background-color: #10b981; width: 100%;">Download System Requirements Spec (SyRS)</button>
+                        <button class="btn btn-outline" onclick="downloadSimulation('HRS_Generated.md')" style="width: 100%; margin-top: 0.5rem; border-color: #10b981; color: #065f46;">Download Hardware Requirements (HRS)</button>
                     </div>
                 </div>
 
@@ -465,17 +472,24 @@
 
             <div class="card live-demo-grid">
                 <div>
-                    <h3 style="font-family: var(--syne); margin-bottom: 0.5rem; font-size: 1.2rem;">Diagram Description Input</h3>
+                    <h3 style="font-family: var(--syne); margin-bottom: 0.5rem; font-size: 1.2rem;">Diagram Image Upload</h3>
                     <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                        Simulate the output of an OCR/Vision model scanning a hardware block diagram.
+                        Upload a block diagram (.png / .jpg). An OCR/Vision model will scan it and extract structured topology.
                     </p>
-                    <div class="input-group" style="flex-direction: column;">
-                        <textarea id="diagram-input" rows="5">Block Diagram Input: 
-[Control Unit] sends commands to [Servo Motor]. 
-[Servo Motor] links physically to [Actuator Arm].
-[Power Pack] supplies 24V to [Control Unit] and [Servo Motor].</textarea>
-                        <button class="btn" style="align-self: flex-start;" onclick="simulateDiagramParse()" id="diagram-btn">Extract Structured Data</button>
+                    <div class="upload-zone" id="diagram-upload-zone" onclick="document.getElementById('diagram-file-input').click()" style="margin-bottom: 1rem; cursor: pointer; padding: 2rem; position: relative;">
+                        <input type="file" id="diagram-file-input" accept="image/png, image/jpeg" style="display: none;" onchange="handleDiagramUpload(event)">
+                        <div id="diagram-placeholder">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🖼️</div>
+                            <h4 style="color: var(--text-primary); margin-bottom: 0.5rem; font-family: var(--syne); font-size: 1rem;">Upload Diagram Image</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.85rem;">Click to upload from device</p>
+                        </div>
+                        <div id="diagram-preview-container" style="display: none; position: relative; width: 100%; height: 180px; overflow: hidden; border-radius: 8px;">
+                            <img id="diagram-image-preview" style="width: 100%; height: 100%; object-fit: contain;">
+                            <!-- Scanning animation overlay -->
+                            <div id="diagram-scanner" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent-tertiary); z-index: 10;"></div>
+                        </div>
                     </div>
+                    <button class="btn" style="align-self: flex-start; width: 100%;" onclick="simulateDiagramParse()" id="diagram-btn" disabled>Upload an Image First</button>
                 </div>
 
                 <div>
@@ -636,30 +650,104 @@
             downloadZone.style.display = 'block';
         }
 
+        // Generate Simulated Markdown Download
+        function downloadSimulation(filename) {
+            let content = "";
+            let imgString = "";
+            const imagePreview = document.getElementById('diagram-image-preview');
+            // Check if an image has been uploaded to embed it into the markdown
+            if (imagePreview && imagePreview.src && imagePreview.src.startsWith('data:image')) {
+                imgString = `\n\n## Reference Visual Topology\n<img src="${imagePreview.src}" alt="Uploaded Diagram" style="max-width:600px; border:1px solid #ccc; border-radius:8px;">\n\n`;
+            }
+
+            if (filename.includes('SyRS')) {
+                content = `# System Requirements Specification (SyRS)\n\n## 1. Introduction\nThis document defines the system-level requirements extracted from TechSpec-v2_Draft.pdf and IRS baseline.${imgString}\n\n## 2. Requirements Tracking\n- **[SyRS-1.0]** The primary communication link shall utilize the ARINC 429 protocol.\n- **[SyRS-1.1]** Ground station sync latency must remain strictly under 50ms per frame.\n- **[SyRS-1.2]** Payload physical integration capacity shall withstand up to 500kg.\n\n## 3. Compliance & Verification\n*Generated automatically via ArchTech AI using LLaMA 70B & FAISS Vector Database.*\n*Traceability Verified: 100%*\n`;
+            } else {
+                content = `# Hardware Requirements Specification (HRS)\n\n## 1. Hardware Scope\nDefines hardware constraints driven by ICD payload parameters.${imgString}\n\n## 2. Components Tracking\n- **[HRS-2.0]** Flight Control Unit (24V tolerance).\n- **[HRS-2.1]** Primary Power Pack converter rating: 150W peak, 120W nominal.\n\n## 3. Interfaces\n- Hardware links to the Antenna mechanism must use mechanical tension tolerances mapped in ICD-004.\n`;
+            }
+
+            const blob = new Blob([content], { type: 'text/markdown' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
         // Diagram OCR Simulation
+        function handleDiagramUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('diagram-placeholder').style.display = 'none';
+                    document.getElementById('diagram-preview-container').style.display = 'block';
+                    document.getElementById('diagram-image-preview').src = e.target.result;
+                    
+                    const btn = document.getElementById('diagram-btn');
+                    btn.disabled = false;
+                    btn.textContent = "Extract Architecture JSON";
+                    document.getElementById('diagram-output').innerHTML = "<span style='color:#64748b;'>// Image primed. Waiting for execution...</span>";
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         function simulateDiagramParse() {
             const btn = document.getElementById('diagram-btn');
             const output = document.getElementById('diagram-output');
+            const scanner = document.getElementById('diagram-scanner');
             
             btn.disabled = true;
             btn.textContent = "Analyzing Geometry & Text...";
             output.innerHTML = "<span style='color:#64748b;'>// Vision LLM processing image tokens...</span>";
+            
+            // Start scanning animation overlay
+            scanner.style.display = 'block';
+            scanner.classList.add('scanning-active');
 
             setTimeout(() => {
+                scanner.style.display = 'none';
+                scanner.classList.remove('scanning-active');
+
                 const jsonObj = {
-                    "document_type": "Hardware Block Diagram",
-                    "extracted_nodes": [
-                        {"node_id": "ND-01", "name": "Control Unit", "type": "Microcontroller"},
-                        {"node_id": "ND-02", "name": "Servo Motor", "type": "Actuator", "requires": "24V"},
-                        {"node_id": "ND-03", "name": "Actuator Arm", "type": "Mechanical Linkage"},
-                        {"node_id": "ND-04", "name": "Power Pack", "type": "Power Supply", "outputs": "24V"}
-                    ],
-                    "extracted_edges": [
-                        {"source": "ND-01", "target": "ND-02", "type": "Signal/Command"},
-                        {"source": "ND-02", "target": "ND-03", "type": "Mechanical Tension"},
-                        {"source": "ND-04", "target": "ND-01", "type": "Power Link"},
-                        {"source": "ND-04", "target": "ND-02", "type": "Power Link"}
-                    ]
+                  "document_type": "Hardware Block Diagram",
+                  "system_name": "RFSoC Signal Processing System",
+                  "extracted_nodes": [
+                    { "node_id": "ND-01", "name": "Processor", "type": "Processing Unit", "description": "Controls system operations and high-level processing" },
+                    { "node_id": "ND-02", "name": "FPGA", "type": "Programmable Logic", "description": "Handles real-time signal processing and data routing" },
+                    { "node_id": "ND-03", "name": "RF Data Converter", "type": "Mixed-Signal Module", "description": "Performs analog-to-digital and digital-to-analog conversion" },
+                    { "node_id": "ND-04", "name": "ADC", "type": "Analog to Digital Converter", "parent": "RF Data Converter" },
+                    { "node_id": "ND-05", "name": "DAC", "type": "Digital to Analog Converter", "parent": "RF Data Converter" },
+                    { "node_id": "ND-06", "name": "DDR Memory", "type": "External Memory", "description": "Stores intermediate and processed data" },
+                    { "node_id": "ND-07", "name": "RF Input Antenna", "type": "Signal Source", "description": "Provides analog RF signals to ADC" },
+                    { "node_id": "ND-08", "name": "RF Output Antenna", "type": "Signal Sink", "description": "Transmits analog RF signals from DAC" }
+                  ],
+                  "extracted_edges": [
+                    { "source": "ND-07", "target": "ND-04", "type": "Analog RF Signal Input" },
+                    { "source": "ND-04", "target": "ND-02", "type": "Digital Data Flow" },
+                    { "source": "ND-02", "target": "ND-05", "type": "Processed Digital Signal" },
+                    { "source": "ND-05", "target": "ND-08", "type": "Analog RF Signal Output" },
+                    { "source": "ND-01", "target": "ND-02", "type": "Control Signal" },
+                    { "source": "ND-02", "target": "ND-03", "type": "Internal Data Path" },
+                    { "source": "ND-03", "target": "ND-02", "type": "Bidirectional Data" },
+                    { "source": "ND-02", "target": "ND-06", "type": "Memory Interface" },
+                    { "source": "ND-01", "target": "ND-06", "type": "Memory Control" }
+                  ],
+                  "system_flow": [
+                    "RF input is received via antenna",
+                    "ADC converts analog RF signal to digital",
+                    "FPGA processes the digital signal",
+                    "Processed data may be stored in DDR memory",
+                    "FPGA sends processed data to DAC",
+                    "DAC converts digital signal back to analog",
+                    "RF output is transmitted via antenna"
+                  ],
+                  "system_type_prediction": "RF Signal Processing / Software Defined Radio (SDR)",
+                  "confidence_score": 0.91
                 };
 
                 const jsonStr = JSON.stringify(jsonObj, null, 2);
@@ -669,7 +757,7 @@
 
                 output.innerHTML = highlighted;
                 btn.disabled = false;
-                btn.textContent = "Extract Structured Data";
+                btn.textContent = "Extract Architecture JSON";
             }, 3000);
         }
 

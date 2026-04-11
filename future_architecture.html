@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchTech AI - Future Architectures</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                fontFamily: 'Inter, sans-serif',
+                primaryColor: '#ffffff',
+                primaryBorderColor: '#6d28d9',
+                primaryTextColor: '#1e293b',
+                lineColor: '#cbd5e1',
+                secondaryColor: '#f8fafc',
+                tertiaryColor: '#f1f5f9'
+            }
+        });
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #ffffff;
+            --surface-color: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #6d28d9;    
+            --accent-secondary: #0ea5e9;  
+            --accent-tertiary: #10b981;   
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius-lg: 16px;
+            --border-radius-md: 12px;
+            --transition-speed: 0.3s;
+            --mono: 'Space Mono', monospace;
+            --syne: 'Syne', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+        
+        header { border-bottom: 1px solid var(--border-color); padding: 1rem 0; background: rgba(255, 255, 255, 0.9); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px); }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--syne); font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, var(--text-primary), var(--accent-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-sub { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); }
+        nav { display:flex; gap: 1rem; }
+        nav a { text-decoration: none; font-weight: 500; color: var(--accent-primary); border: 1px solid var(--accent-primary); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; transition: background 0.2s;}
+        nav a:hover { background: var(--accent-primary); color: white; }
+
+        section { padding: 4rem 0; opacity: 0; animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        
+        .section-header { text-align: center; margin-bottom: 3rem; }
+        .section-header h2 { font-family: var(--syne); font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 800; }
+        .section-header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 650px; margin: 0 auto; }
+
+        .card { background-color: #ffffff; border-radius: var(--border-radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); margin-bottom: 3rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media(max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        .step-box { background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--border-radius-md); margin-bottom: 1rem; position: relative; }
+        .step-number { position: absolute; left: -15px; top: 1.5rem; width: 30px; height: 30px; background: var(--accent-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--syne); font-weight: bold; border: 3px solid white; }
+        .step-box p { font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.5rem; }
+        .step-box h4 { font-family: var(--syne); color: var(--text-primary); margin-left: 10px; font-size: 1.1rem; }
+
+        .viz-container { width: 100%; border: 1px dashed var(--border-color); border-radius: var(--border-radius-md); background: #fdfdfd; padding: 1.5rem; overflow-x: auto; display: flex; align-items: center; justify-content: center; min-height: 400px; }
+        
+        .terminal { background: #0f172a; border-radius: var(--border-radius-md); padding: 1.5rem; font-family: var(--mono); font-size: 0.85rem; color: #e2e8f0; height: 100%; line-height: 1.5; }
+        .t-comment { color: #64748b; }
+        .t-keyword { color: #a3e635; }
+        .t-func { color: #38bdf8; }
+        .t-str { color: #facc15; }
+        .t-prompt { color: #10b981; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-content">
+            <div>
+                <div class="logo">ArchTech AI</div>
+                <div class="logo-sub">Architecture Specifications</div>
+            </div>
+            <nav>
+                <a href="archtech_demo.html">← Back to Main Demo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Processor Selection Pipeline -->
+        <section id="processor">
+            <div class="section-header">
+                <h2>Intelligent Hardware Selection Pipeline</h2>
+                <p>A deterministic workflow for extracting constraints and pinpointing the exact processor (CPU/MCU/FPGA) necessary for the project's payload.</p>
+            </div>
+
+            <div class="card grid-2">
+                <div>
+                    <h3 style="font-family: var(--syne); margin-bottom: 2rem; font-size: 1.4rem;">How it works</h3>
+                    
+                    <div class="step-box" style="margin-left: 15px;">
+                        <div class="step-number">1</div>
+                        <h4>Parameter Extraction</h4>
+                        <p>NLP models extract strict numeric boundaries from the SyRS and HRS: Payload power (W), Thermal limits (°C), and minimum IO pins needed.</p>
+                    </div>
+
+                    <div class="step-box" style="margin-left: 15px;">
+                        <div class="step-number">2</div>
+                        <h4>Profile Bounds Mapping</h4>
+                        <p>Classify the operational profile. Does it require <em>hard real-time processing</em>? High parallel throughput (DSP)? This narrows down the category (e.g. FPGA vs ARM Cortex).</p>
+                    </div>
+
+                    <div class="step-box" style="margin-left: 15px;">
+                        <div class="step-number">3</div>
+                        <h4>Component Knowledge Graph</h4>
+                        <p>Run a similarity search across our embedded Vector Database containing thousands of processor datasheets (Xilinx, STMicroelectronics, NXP).</p>
+                    </div>
+
+                    <div class="step-box" style="margin-left: 15px;">
+                        <div class="step-number">4</div>
+                        <h4>Recommendation Matrix</h4>
+                        <p>Rank processors by compliance to constraints. Output the final selection with a confidence score explaining exactly <em>why</em> it fits the power/throughput budget.</p>
+                    </div>
+                </div>
+
+                <div class="viz-container">
+                    <div class="mermaid">
+                    graph TD
+                        A[SyRS / HRS Constraints] --> B[Extract: Power & Throughput]
+                        A --> C[Extract: Control vs DSP]
+                        B --> D{Profile Eval}
+                        C --> D
+                        D -->|High DSP| E[Query: FPGA Pool]
+                        D -->|Hard Real-Time| F[Query: MCU Pool]
+                        D -->|Linux OS Needed| G[Query: App Proc Pool]
+                        E --> H[(Component Vector DB)]
+                        F --> H
+                        G --> H
+                        H --> I[Constraint Filter<br/>P_max < 120W]
+                        I --> J[Rank Candidates]
+                        J --> K[Best Match:<br/>Zynq UltraScale+ RFSoC]
+                        style K fill:#6d28d9,color:#fff,stroke:#4c1d95,stroke-width:2px
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auto Code Generator -->
+        <section id="codegen">
+            <div class="section-header">
+                <h2>Auto Code Generator and Development Testing</h2>
+                <p>Translating human-readable System Requirements into executable test suites to achieve closed-loop verification.</p>
+            </div>
+
+            <div class="card grid-2">
+                <div>
+                    <h3 style="font-family: var(--syne); margin-bottom: 2rem; font-size: 1.4rem;">Pipeline Execution</h3>
+                    
+                    <div class="step-box" style="margin-left: 15px; border-color: var(--accent-tertiary);">
+                        <div class="step-number" style="background: var(--accent-tertiary);">A</div>
+                        <h4>Logical Condition Modeling</h4>
+                        <p>Translate natural language into AST (Abstract Syntax Tree) logical statements (e.g., `value <= 50`).</p>
+                    </div>
+
+                    <div class="step-box" style="margin-left: 15px; border-color: var(--accent-tertiary);">
+                        <div class="step-number" style="background: var(--accent-tertiary);">B</div>
+                        <h4>Syntax Generation (PyTest)</h4>
+                        <p>A specialized Coding LLM orchestrates the logic into standard CI Python libraries. It auto-generates mocks matching the hardware interfaces.</p>
+                    </div>
+
+                    <div class="step-box" style="margin-left: 15px; border-color: var(--accent-tertiary);">
+                        <div class="step-number" style="background: var(--accent-tertiary);">C</div>
+                        <h4>Virtual Sandbox Execution</h4>
+                        <p>ArchTech runs the suite in an ephemeral Docker environment to validate test logic without requiring real hardware-in-the-loop.</p>
+                    </div>
+
+                    <div class="step-box" style="margin-left: 15px; border-color: var(--accent-tertiary);">
+                        <div class="step-number" style="background: var(--accent-tertiary);">D</div>
+                        <h4>Traceability Reporting</h4>
+                        <p>Test Pass/Fail results are mapped permanently back to the specific SyRS requirement ID for compliance signoff.</p>
+                    </div>
+                </div>
+
+                <div class="terminal">
+                    <span class="t-prompt">archtech-ci@sandbox</span>:~$ cat /tests/test_syrs_generated.py
+                    <br><br>
+                    <span class="t-comment"># Auto-Generated from [SyRS-1.1]</span><br>
+                    <span class="t-keyword">import</span> pytest<br>
+                    <span class="t-keyword">from</span> sim_env <span class="t-keyword">import</span> ground_station<br>
+                    <br>
+                    <span class="t-keyword">def</span> <span class="t-func">test_ground_station_sync</span>():<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-comment">""" Verify latency < 50ms per frame """</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;session = ground_station.init_link()<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;latency = session.ping_payload()<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-keyword">assert</span> latency < 50, <span class="t-str">f"Latency overflow: {latency}ms"</span><br>
+                    <br>
+                    <span class="t-prompt">archtech-ci@sandbox</span>:~$ pytest -v /tests/test_syrs_generated.py
+                    <br>
+                    <span style="color: #e2e8f0;">============================= test session starts ==============================</span><br>
+                    <span style="color: #e2e8f0;">collected 1 item</span><br>
+                    <br>
+                    <span style="color: #e2e8f0;">tests/test_syrs_generated.py::test_ground_station_sync </span><span style="color: #10b981; font-weight: bold;">PASSED</span><br>
+                    <br>
+                    <span class="t-prompt">archtech-ci@sandbox</span>:~$ node link_traceability.js --push "SyRS-1.1" --status PASS
+                    <br>
+                    <span style="color: #0ea5e9;">[SUCCESS] Compliance matrices updated safely in remote database.</span>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-bottom: 0;">
+                <h3 style="font-family: var(--syne); margin-bottom: 1.5rem; text-align: center;">Logical Flow Sequence</h3>
+                <div class="viz-container" style="min-height: 250px;">
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant R as HRS/SyRS Logic
+                        participant C as CodeGen Agent
+                        participant S as Sandbox Eval
+                        participant D as Compliance Matrix
+                        R->>C: Push Constraint (Payload_Watts <= 120)
+                        C->>C: Generate Python Mock & Assertions
+                        C->>S: Deploy test_power_budget.py via Docker
+                        S-->>C: Return Execution Result (0 errors)
+                        C->>D: POST {Req_ID: 'HRS-2.1', Status: 'Verified'}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="text-align: center; color: var(--text-secondary); border-top: 1px solid var(--border-color); padding-top: 2rem; margin-top: 2rem;">
+            <p>&copy; 2026 ArchTech AI. Powered by ByteForge.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,190 @@
+1. Reverse a string without using any library function. 
+2. Find the second largest element in an integer array. 
+3. Reverse a singly linked list (iterative approach). 
+4. Count the number of set bits in an integer using bitwise operators. 
+5. Implement your own memcpy() function. 
+6.Write a function to remove all duplicate characters from a string without using any library function.
+Example:
+Input : "programming"
+Output: "progamin"
+7.Find the maximum sum contiguous subarray.
+Example:
+{-2,1,-3,4,-1,2,1,-5,4}
+Output:
+6
+Do both:
+    • Brute Force 
+    • Optimal (Kadane's Algorithm)
+8.Implement your own version of:
+char *strcpy(char *dest, const char *src);
+Don't use any string library.
+9.Check whether a number is a power of two using only bitwise operators.
+Examples:
+8  -> Yes
+10 -> No
+16 -> Yes
+10.Implement your own
+void *memmove(void *dest, const void *src, size_t n);
+Explain:
+    • Why memcpy() fails for overlapping memory. 
+    • Why memmove() works. 
+===================================================================================================
+
+    1. Detect whether a linked list contains a loop (both brute force and optimal solution). 
+    2. Given a sorted array, find the first and last occurrence of a target value. 
+    3.Reverse a linked list in groups of K.
+Example:
+1->2->3->4->5->6
+K=2
+Output
+2->1->4->3->6->5
+Time Complexity?
+4.Search an element in a rotated sorted array.
+Example
+4 5 6 7 0 1 2
+Target = 0
+Output = 4
+Complexity?
+===================================================================================================
+    1. Difference between process and kernel thread. 
+    2. What is the purpose of copy_from_user() and copy_to_user()? 
+    3. Difference between spinlock and mutex. 
+    4. Explain the Linux kernel boot sequence. 
+    5. What is container_of() and why is it used? 
+    6. Difference between
+fork()
+vfork()
+clone()
+
+7.
+Explain
+schedule()
+When does the scheduler run?
+
+8.
+Explain
+wait_event()
+wait_event_interruptible()
+
+9
+Difference between
+volatile
+READ_ONCE()
+WRITE_ONCE()
+Why is volatile generally discouraged in kernel code?
+
+10
+Explain
+struct list_head
+Write the APIs used for:
+    • Initialization 
+    • Add 
+    • Delete 
+    • Iterate 
+
+===================================================================================================
+    1. Explain the flow of a character device driver from module_init() to module_exit(). 
+    2. What is struct file_operations? 
+    3. Explain the purpose of open(), read(), write(), release(), and unlocked_ioctl(). 
+    4. What is the difference between kmalloc() and vmalloc()? 
+    5. Explain the purpose of ioremap(). ?
+     6.Explain the complete flow of
+open()
+↓
+read()
+↓
+poll()
+↓
+ioctl()
+↓
+release()
+
+7.Difference between
+request_irq()
+request_threaded_irq()
+When should each be used?
+8.Explain
+devm_kzalloc()
+vs
+kmalloc()
+Advantages?
+
+9Write the sequence to register a character driver.
+Include:
+    • alloc_chrdev_region() 
+    • cdev_init() 
+    • cdev_add() 
+    • class_create() 
+    • device_create() 
+
+10.What is
+mmap()
+How is it implemented inside a Linux driver?
+
+==================================================================================================
+==================================================================================================
+    1. What are PCIe BARs, and how are they used 
+    2. Explain the difference between coherent DMA and streaming DMA. 
+    3.PCIe Enumeration
+Explain:
+    • Root Complex 
+    • Endpoint 
+    • Bus Number 
+    • Device Number 
+    • Function Number 
+How does Linux discover PCIe devices during boot?
+
+4.
+Explain the complete DMA mapping flow.
+Include:
+    • dma_set_mask() 
+    • dma_alloc_coherent() 
+    • dma_map_single() 
+    • dma_unmap_single() 
+When should each API be used?
+=================================================================================================
+
+    1. Explain the V4L2 video capture pipeline. 
+    2. What is the difference between a GStreamer element, pad, and pipeline?=
+    3.
+Draw and explain the V4L2 pipeline:
+Sensor
+↓
+CSI
+↓
+VI
+↓
+ISP
+↓
+Memory
+↓
+V4L2
+↓
+Application
+Explain the role of each stage.
+
+4.
+Explain the following GStreamer elements:
+    • filesrc 
+    • v4l2src 
+    • videoconvert 
+    • capsfilter 
+    • nvvidconv 
+    • nvv4l2h264enc 
+    • h264parse 
+    • mp4mux 
+    • filesink 
+Also explain how data flows through a pipeline.
+
+================================================================================================= 
+Jetson Orin NX Practical (1)
+Run the following and explain the output:
+    • v4l2-ctl --list-devices 
+    • v4l2-ctl --all
+
+uname -a
+cat /etc/nv_tegra_release
+lsmod | grep nv
+v4l2-ctl --list-devices
+media-ctl -p
+

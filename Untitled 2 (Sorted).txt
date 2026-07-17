@@ -1,0 +1,4172 @@
+Sorted Interview Question Bank
+
+This document contains all interview questions sorted by topic.
+
+------------------------------------------------------------------------
+
+Table of Contents
+
+1.  C Programming
+2.  Data Structures & Algorithms (DSA)
+3.  Linux Kernel
+4.  Linux Device Drivers
+5.  PCIe & DMA
+6.  Multimedia
+7.  Jetson Orin NX Practical
+8.  NVIDIA Challenges
+9.  Reading Assignments
+
+------------------------------------------------------------------------
+
+C Programming
+
+Set 1
+
+Q1
+
+Reverse a string without using any library function.
+
+Q2
+
+Find the second largest element in an integer array.
+
+Q3
+
+Reverse a singly linked list (iterative approach).
+
+Q4
+
+Count the number of set bits in an integer using bitwise operators.
+
+Q5
+
+Implement your own memcpy() function.
+
+Set 2
+
+Q1. String
+
+Write a function to remove all duplicate characters from a string
+without using any library function.
+
+Example:
+
+Input : "programming"
+
+Output: "progamin"
+
+Q2. Array
+
+Find the maximum sum contiguous subarray.
+
+Example:
+
+{-2,1,-3,4,-1,2,1,-5,4}
+
+Output:
+
+6
+
+Do both:
+
+-   Brute Force
+-   Optimal (Kadane's Algorithm)
+
+Q3. Pointer
+
+Implement your own version of:
+
+char *strcpy(char *dest, const char *src);
+
+Don't use any string library.
+
+Q4. Bitwise
+
+Check whether a number is a power of two using only bitwise operators.
+
+Examples:
+
+8 -> Yes
+
+10 -> No
+
+16 -> Yes
+
+Q5. Memory
+
+Implement your own
+
+void *memmove(void *dest, const void *src, size_t n);
+
+Explain:
+
+-   Why memcpy() fails for overlapping memory.
+-   Why memmove() works.
+
+Set 3
+
+Q1. Pointer + String
+
+Write a function to reverse the order of words in a string without using
+any library functions.
+
+Example:
+
+Input:
+
+"I love Linux"
+
+Output:
+
+"Linux love I"
+
+Q2. Array + Matrix
+
+Rotate a NxN matrix by 90° clockwise in-place.
+
+Example:
+
+1 2 3
+
+4 5 6
+
+7 8 9
+
+Output
+
+7 4 1
+
+8 5 2
+
+9 6 3
+
+Q3. Pointer
+
+Write your own implementation of
+
+char *strstr(char *haystack, char *needle);
+
+Don't use any string library.
+
+Q4. Bitwise
+
+Reverse all bits of a 32-bit unsigned integer.
+
+Example:
+
+Input
+
+00000000000000000000000000001010
+
+Output
+
+01010000000000000000000000000000
+
+Q5. Memory
+
+Implement your own
+
+int memcmp(const void *a,const void *b,size_t n);
+
+Explain:
+
+-   Return values
+-   Time Complexity
+-   Edge cases
+
+Set 4
+
+Q1. String + Pointer
+
+Implement your own:
+
+char *strtok(char *str, const char *delim);
+
+Requirements:
+
+-   Do not use any string library.
+-   Handle multiple delimiters.
+-   Explain why strtok() is not thread-safe.
+-   How would you implement a thread-safe version (strtok_r)?
+
+Q2. Array
+
+Given:
+
+10 20 30 40 50 60 70
+
+Rotate the array to the right by K positions.
+
+Example:
+
+K=3
+
+Output
+
+50 60 70 10 20 30 40
+
+Solve:
+
+-   Brute Force
+-   Optimal (Reverse Algorithm)
+
+Q3. Pointer
+
+Write your own implementation of:
+
+char *strchr(const char *str, int c);
+
+Explain:
+
+-   Return value
+-   Edge cases
+-   Complexity
+
+Q4. Bitwise
+
+Without using multiplication (*) or division (/), implement:
+
+int multiply(int a, int b);
+
+Use only:
+
+-   Bitwise operators
+-   Addition
+-   Shifts
+
+Q5. Dynamic Memory
+
+Implement a dynamic stack using:
+
+-   malloc()
+-   realloc()
+-   free()
+
+Support:
+
+-   push
+-   pop
+-   peek
+-   isEmpty
+
+Explain when realloc() moves memory.
+
+Set 5
+
+Q1. String + Pointer
+
+Implement:
+
+char *strnstr(const char *haystack,
+
+-   const char *needle,*
+
+-   size_t len);*
+
+Requirements:
+
+-   No library functions.
+-   Return pointer to first occurrence.
+-   Handle NULL cases.
+-   Explain complexity.
+
+Q2. Pointer + Memory
+
+Implement your own memory allocator.
+
+Support:
+
+void *my_malloc(size_t size);
+
+void my_free(void *ptr);
+
+Don't worry about production quality.
+
+Explain:
+
+-   Metadata
+-   Free list
+-   Fragmentation
+
+Q3. Bitwise
+
+Implement division without using:
+
+-   /
+
+-   %
+
+    -   
+
+Use only:
+
+-   <<
+
+-   &
+
+-   |
+
+    -   
+    -   
+
+Q4. Array
+
+Find the median of two sorted arrays.
+
+Example
+
+1 3 5
+
+2 4 6
+
+Output
+
+3.5
+
+Solve:
+
+-   O(n)
+-   O(log(min(n,m)))
+
+Q5. Pointer
+
+Write your own implementation of
+
+char *strrchr(const char *str,int c);
+
+Set 6
+
+Q1. String + Pointer
+
+Implement:
+
+char *my_strcasestr(const char *haystack, const char *needle);
+
+Requirements:
+
+-   Case-insensitive search.
+-   Don't use tolower(), strcasecmp(), or any string library.
+-   Analyze time complexity.
+-   Suggest an optimized approach (e.g., KMP).
+
+Q2. Memory
+
+Implement a circular buffer (ring buffer).
+
+Support:
+
+init()
+
+enqueue()
+
+dequeue()
+
+isFull()
+
+isEmpty()
+
+destroy()
+
+Explain:
+
+-   Where ring buffers are used in Linux drivers.
+-   Advantages over a normal queue.
+
+Q3. Bitwise
+
+Given a 32-bit integer:
+
+-   Swap every odd bit with its adjacent even bit.
+
+Example:
+
+10110010
+
+↓
+
+01110001
+
+Explain every mask used.
+
+Q4. Array
+
+Find the first missing positive integer.
+
+Example:
+
+3 4 -1 1
+
+Output
+
+2
+
+Requirements:
+
+-   O(n)
+-   O(1) extra space
+
+Q5. Pointer
+
+Implement your own:
+
+char *my_strcat(char *dest,const char *src);
+
+Handle:
+
+-   Invalid input
+-   Buffer overflow discussion
+-   Complexity
+
+Set 7
+
+Q1. String
+
+Implement your own:
+
+int my_atoi(const char *str);
+
+Handle:
+
+• Leading spaces
+
+• '+' and '-' signs
+
+• Invalid characters
+
+• Integer overflow
+
+• NULL pointer
+
+Follow-up:
+
+• Why is atoi() unsafe?
+
+• Why is strtol() preferred?
+
+Q2. Pointer + Memory
+
+Implement a generic linked list using void *.
+
+Support:
+
+insert()
+
+delete()
+
+search()
+
+display()
+
+destroy()
+
+Explain:
+
+• Why void * is used.
+
+• Memory ownership.
+
+• Advantages over a type-specific list.
+
+Q3. Bitwise
+
+Given a 32-bit integer:
+
+• Find the position of the rightmost set bit.
+
+• Find the position of the leftmost set bit.
+
+• Count leading zeros (without compiler built-ins).
+
+Complexity?
+
+Q4. Array
+
+Find the majority element.
+
+Example:
+
+2 2 1 1 2 2 2
+
+Output:
+
+2
+
+Solve:
+
+• Brute Force
+
+• Hashing
+
+• Boyer-Moore Voting Algorithm
+
+Q5. Memory
+
+Implement your own fixed-size memory pool allocator.
+
+Functions:
+
+pool_init()
+
+pool_alloc()
+
+pool_free()
+
+pool_destroy()
+
+Explain:
+
+• Advantages
+
+• Fragmentation
+
+• Embedded use cases
+
+Set 8
+
+Q1. String
+
+Implement:
+
+int my_snprintf(char *buf, size_t size, const char *fmt, ...);
+
+Support only:
+
+• %d
+
+• %c
+
+• %s
+
+Explain:
+
+• Why snprintf() is safer than sprintf()
+
+• Return value
+
+• Buffer overflow prevention
+
+Q2. Pointer + Linked List
+
+Flatten the following linked list.
+
+5 -> 10 -> 19 -> 28
+
+|     |      |
+
+7     20     22
+
+|            |
+
+8            50
+
+|
+
+30
+
+Output
+
+5->7->8->10->19->20->22->28->30->50
+
+Q3. Bitwise
+
+Implement
+
+int parity(unsigned int n);
+
+Return:
+
+• 0 → even parity
+
+• 1 → odd parity
+
+Without loops if possible.
+
+Q4. Memory
+
+Write your own implementation of
+
+void *calloc(size_t n, size_t size);
+
+Explain:
+
+• Integer overflow protection
+
+• Difference between malloc() and calloc()
+
+Q5. Pointer
+
+Write a generic
+
+void swap(void *a, void *b, size_t size);
+
+It should swap:
+
+• int
+
+• float
+
+• structure
+
+• char array
+
+Set 9
+
+Q1. String + Parsing
+
+Implement your own:
+
+int my_strtol(const char *str, char **endptr, int base);
+
+Support:
+
+• Base 2, 8, 10, 16
+
+• Leading spaces
+
+• '+' and '-' signs
+
+• Overflow detection
+
+• Invalid characters
+
+Explain why strtol() is preferred over atoi().
+
+Q2. Memory Management
+
+Implement a generic vector (dynamic array) similar to C++ std::vector.
+
+Support:
+
+init()
+
+push_back()
+
+pop_back()
+
+insert()
+
+erase()
+
+resize()
+
+destroy()
+
+Explain:
+
+• Capacity vs Size
+
+• Amortized complexity
+
+• Reallocation strategy
+
+Q3. Bitwise
+
+Implement:
+
+unsigned int reverse_bytes(unsigned int value);
+
+Example:
+
+0x12345678
+
+↓
+
+0x78563412
+
+Don't use loops if possible.
+
+Q4. Arrays
+
+Given an unsorted array, find the smallest subarray which, if sorted, makes the whole array sorted.
+
+Example:
+
+1 2 6 5 5 8 9
+
+Output
+
+Start = 2
+
+End = 4
+
+Solve in O(n).
+
+Q5. Pointer
+
+Implement a generic stack using void *.
+
+Support:
+
+• push()
+
+• pop()
+
+• peek()
+
+• destroy()
+
+Explain why generic containers are useful in embedded software.
+
+Set 10
+
+Q1. String
+
+Implement your own:
+
+int my_sscanf(const char *str, const char *fmt, ...);
+
+Support:
+
+• %d
+
+• %c
+
+• %s
+
+Explain:
+
+• How variadic arguments work (stdarg.h)
+
+• Limitations of your implementation
+
+• Difference between scanf() and sscanf()
+
+Q2. Pointer + Memory
+
+Implement a generic hash table.
+
+Support:
+
+insert()
+
+search()
+
+delete()
+
+destroy()
+
+Requirements:
+
+• Use separate chaining.
+
+• Generic keys (void *) are a bonus.
+
+• Explain collision handling.
+
+Q3. Bitwise
+
+Implement:
+
+unsigned int next_power_of_two(unsigned int n);
+
+Requirements:
+
+• O(1)
+
+• Bitwise operations only
+
+• Handle edge cases (0, overflow)
+
+Q4. Array
+
+Find the maximum product subarray.
+
+Example:
+
+2 3 -2 4
+
+Output
+
+6
+
+Solve:
+
+• Brute Force
+
+• Optimal O(n)
+
+Explain why both maximum and minimum products must be tracked.
+
+Q5. Structures + Pointers
+
+Implement a generic queue using a linked list.
+
+Support:
+
+• enqueue()
+
+• dequeue()
+
+• front()
+
+• destroy()
+
+Explain:
+
+• Time complexity
+
+• Advantages over an array-based queue
+
+------------------------------------------------------------------------
+
+Data Structures & Algorithms (DSA)
+
+Set 2
+
+Q1. Linked List
+
+Reverse a linked list in groups of K.
+
+Example:
+
+1->2->3->4->5->6
+
+K=2
+
+Output
+
+2->1->4->3->6->5
+
+Time Complexity?
+
+Q2. Binary Search
+
+Search an element in a rotated sorted array.
+
+Example
+
+4 5 6 7 0 1 2
+
+Target = 0
+
+Output = 4
+
+Complexity?
+
+Set 3
+
+Q1
+
+Merge two sorted linked lists.
+
+Complexity?
+
+Q2
+
+Given
+
+100100111010101...
+
+Find the longest consecutive sequence of 1's.
+
+Do:
+
+-   Brute Force
+-   Optimal
+
+Set 4
+
+Q1. Linked List
+
+Remove the Nth node from the end of a singly linked list.
+
+Example:
+
+1->2->3->4->5
+
+N=2
+
+Output
+
+1->2->3->5
+
+Solve:
+
+-   Brute Force
+-   Two-pointer approach
+
+Q2. Binary Tree
+
+Implement:
+
+-   Inorder Traversal
+-   Preorder Traversal
+-   Postorder Traversal
+
+Then answer:
+
+-   Time Complexity
+-   Space Complexity
+-   Recursive vs Iterative approach
+
+Set 5
+
+Q1
+
+Implement an LRU Cache.
+
+Operations:
+
+put()
+
+get()
+
+Complexity:
+
+O(1)
+
+Hint:
+
+-   Hash Table
+-   Doubly Linked List
+
+Q2
+
+Find the Lowest Common Ancestor (LCA) of two nodes in a binary tree.
+
+Explain:
+
+-   Recursive
+-   Iterative
+
+Set 6
+
+Q1
+
+Implement a Trie.
+
+Operations:
+
+insert()
+
+search()
+
+startsWith()
+
+delete()
+
+Explain:
+
+-   Time Complexity
+-   Memory usage
+-   Applications
+
+Q2
+
+Given an array:
+
+1 2 3 4 5 6 7
+
+Rotate it left by K positions.
+
+Solve:
+
+-   Brute Force
+-   Reversal Algorithm
+-   Juggling Algorithm
+
+Compare all three.
+
+Set 7
+
+Q1
+
+Implement a Min Heap.
+
+Support:
+
+insert()
+
+extractMin()
+
+decreaseKey()
+
+heapify()
+
+Explain:
+
+• Complexity
+
+• Applications
+
+Q2
+
+Find whether a graph contains a cycle.
+
+Solve:
+
+• DFS
+
+• Union-Find
+
+Compare both approaches.
+
+Set 8
+
+Q1
+
+Implement an AVL Tree.
+
+Support:
+
+• Insert
+
+• Delete
+
+• Search
+
+• Rotation
+
+Explain:
+
+• LL
+
+• RR
+
+• LR
+
+• RL rotations
+
+Q2
+
+Implement Dijkstra's Algorithm.
+
+Explain:
+
+• Priority Queue
+
+• Complexity
+
+• Why BFS doesn't work here
+
+Set 9
+
+Q1
+
+Implement a Red-Black Tree.
+
+Explain:
+
+• Red-Red violation
+
+• Rotations
+
+• Recoloring
+
+• Complexity
+
+Q2
+
+Find Strongly Connected Components (SCC) in a directed graph.
+
+Implement either:
+
+• Kosaraju's Algorithm
+
+• Tarjan's Algorithm
+
+Explain complexity.
+
+Set 10
+
+Q1
+
+Implement Topological Sort.
+
+Provide:
+
+• Kahn's Algorithm (BFS)
+
+• DFS-based approach
+
+Compare:
+
+• Complexity
+
+• Advantages
+
+• Limitations
+
+Q2
+
+Find the diameter of a binary tree.
+
+Implement:
+
+• Naive solution
+
+• Optimized solution
+
+Explain why the optimized approach is O(n).
+
+------------------------------------------------------------------------
+
+Linux Kernel
+
+Set 1
+
+Q1
+
+Difference between process and kernel thread.
+
+Q2
+
+What is the purpose of copy_from_user() and copy_to_user()?
+
+Q3
+
+Difference between spinlock and mutex.
+
+Q4
+
+Explain the Linux kernel boot sequence.
+
+Q5
+
+What is container_of() and why is it used?
+
+Set 2
+
+Q1
+
+Difference between
+
+fork()
+
+vfork()
+
+clone()
+
+Q2
+
+Explain
+
+schedule()
+
+When does the scheduler run?
+
+Q3
+
+Explain
+
+wait_event()
+
+wait_event_interruptible()
+
+Q4
+
+Difference between
+
+volatile
+
+READ_ONCE()
+
+WRITE_ONCE()
+
+Why is volatile generally discouraged in kernel code?
+
+Q5
+
+Explain
+
+struct list_head
+
+Write the APIs used for:
+
+-   Initialization
+-   Add
+-   Delete
+-   Iterate
+
+Set 3
+
+Q1
+
+Difference between
+
+Top Half
+
+Bottom Half
+
+Explain
+
+-   SoftIRQ
+-   Tasklet
+-   Workqueue
+
+Q2
+
+Explain
+
+wait_queue_head_t
+
+Why is it used?
+
+Q3
+
+Difference between
+
+Atomic Variable
+
+Spinlock
+
+Mutex
+
+When should each be used?
+
+Q4
+
+Explain
+
+kthread_run()
+
+kthread_stop()
+
+Q5
+
+What happens internally when
+
+insmod driver.ko
+
+is executed?
+
+Explain from
+
+-   ELF loading
+-   Symbol resolution
+-   init_module()
+-   module_init()
+
+Set 4
+
+Q1
+
+Explain the complete interrupt flow:
+
+Hardware Interrupt
+
+-   ↓*
+
+IRQ Line
+
+-   ↓*
+
+GIC/APIC
+
+-   ↓*
+
+request_irq()
+
+-   ↓*
+
+ISR
+
+-   ↓*
+
+Bottom Half
+
+-   ↓*
+
+Wake User Process
+
+Where is latency introduced?
+
+Q2
+
+Difference between:
+
+Process Context
+
+Interrupt Context
+
+Which APIs are illegal in interrupt context?
+
+Q3
+
+Explain:
+
+container_of()
+
+Write its macro definition and explain:
+
+-   offsetof
+-   Type safety
+-   Why Linux uses it everywhere
+
+Q4
+
+Difference between:
+
+kmalloc()
+
+kzalloc()
+
+vmalloc()
+
+dma_alloc_coherent()
+
+Give practical use cases for each.
+
+Q5
+
+Explain Linux memory zones:
+
+-   DMA
+-   DMA32
+-   NORMAL
+-   HIGHMEM
+
+Why do they exist?
+
+Set 5
+
+Q1
+
+Explain Linux Scheduler.
+
+Compare:
+
+-   CFS
+-   RT Scheduler
+-   Deadline Scheduler
+
+When is each used?
+
+Q2
+
+Explain kernel memory allocation flags.
+
+Difference between:
+
+GFP_KERNEL
+
+GFP_ATOMIC
+
+GFP_DMA
+
+GFP_NOWAIT
+
+Interview follow-up:
+
+Why can't ISR use GFP_KERNEL?
+
+Q3
+
+Difference between
+
+RCU
+
+Spinlock
+
+Mutex
+
+Advantages of RCU?
+
+Q4
+
+Explain:
+
+struct task_struct
+
+Important members:
+
+-   pid
+-   state
+-   mm
+-   files
+-   parent
+-   comm
+
+Q5
+
+Explain Linux Boot Process:
+
+BootROM
+
+↓
+
+Bootloader
+
+↓
+
+Kernel
+
+↓
+
+initramfs
+
+↓
+
+init
+
+↓
+
+systemd
+
+Set 6
+
+Q1
+
+Explain Linux synchronization primitives.
+
+Compare:
+
+-   Spinlock
+-   Mutex
+-   Semaphore
+-   Completion
+-   RCU
+
+For each, answer:
+
+-   Can it sleep?
+-   Can it be used in interrupt context?
+-   Typical use case.
+
+Q2
+
+Explain kernel deferred work.
+
+Compare:
+
+-   SoftIRQ
+-   Tasklet
+-   Workqueue
+-   Threaded IRQ
+
+When should each be used?
+
+Q3
+
+Explain Linux memory allocators.
+
+Compare:
+
+kmalloc()
+
+kcalloc()
+
+kzalloc()
+
+vmalloc()
+
+vzalloc()
+
+dma_alloc_coherent()
+
+Q4
+
+Explain the Linux page cache.
+
+Questions:
+
+-   What is it?
+-   Why is it useful?
+-   How does it affect read()?
+-   Why is O_DIRECT different?
+
+Q5
+
+Explain the complete Linux scheduling flow.
+
+Wakeup
+
+↓
+
+Run Queue
+
+↓
+
+CFS
+
+↓
+
+Context Switch
+
+↓
+
+task_struct
+
+↓
+
+CPU
+
+Set 7
+
+Q1
+
+Explain Linux synchronization in detail.
+
+Compare:
+
+• Spinlock
+
+• Mutex
+
+• Semaphore
+
+• Completion
+
+• RCU
+
+• Atomic Variables
+
+For each:
+
+• Can it sleep?
+
+• Interrupt-safe?
+
+• Performance
+
+• Typical use case
+
+Q2
+
+Explain:
+
+struct file
+
+Important members:
+
+• private_data
+
+• f_op
+
+• f_flags
+
+• f_inode
+
+• f_pos
+
+Q3
+
+Explain the complete path of:
+
+read(fd, buffer, size)
+
+From user space to driver.
+
+Include:
+
+• glibc
+
+• System Call
+
+• VFS
+
+• file_operations
+
+• Driver
+
+• copy_to_user()
+
+Q4
+
+Explain:
+
+Kernel Panic
+
+Oops
+
+BUG()
+
+WARN_ON()
+
+panic()
+
+When does each occur?
+
+Q5
+
+Explain Linux Device Tree.
+
+Topics:
+
+• compatible
+
+• reg
+
+• interrupts
+
+• clocks
+
+• gpios
+
+• phandle
+
+How does the kernel match a driver with a device?
+
+Set 8
+
+Q1
+
+Explain:
+
+copy_from_user()
+
+↓
+
+Driver Buffer
+
+↓
+
+DMA Buffer
+
+↓
+
+Hardware
+
+At which stages can failure occur?
+
+Q2
+
+Explain Linux Kernel synchronization.
+
+Compare:
+
+API
+
+Sleeps
+
+IRQ Safe
+
+Typical Use
+
+Spinlock
+
+Mutex
+
+Semaphore
+
+Completion
+
+Atomic
+
+RCU
+
+Q3
+
+Explain Linux workqueues.
+
+Difference between:
+
+system_wq
+
+Dedicated Workqueue
+
+Delayed Work
+
+Ordered Workqueue
+
+Q4
+
+Explain Linux DMA API.
+
+Include:
+
+dma_alloc_coherent()
+
+dma_map_single()
+
+dma_unmap_single()
+
+dma_sync_single_for_cpu()
+
+dma_sync_single_for_device()
+
+Q5
+
+Explain Linux memory management.
+
+Topics:
+
+• Buddy Allocator
+
+• Slab
+
+• SLUB
+
+• SLOB
+
+When is each used?
+
+Set 9
+
+Q1
+
+Explain the complete Linux Device Tree boot flow.
+
+Bootloader
+
+↓
+
+Device Tree Blob (.dtb)
+
+↓
+
+Kernel
+
+↓
+
+Platform Bus
+
+↓
+
+Driver Matching
+
+↓
+
+probe()
+
+What happens if the compatible string doesn't match?
+
+Q2
+
+Explain:
+
+struct platform_driver
+
+Include:
+
+• probe
+
+• remove
+
+• shutdown
+
+• suspend
+
+• resume
+
+Q3
+
+Compare:
+
+• Spinlock
+
+• Raw Spinlock
+
+• Mutex
+
+• RW Semaphore
+
+• Seqlock
+
+For each:
+
+• Sleep?
+
+• Reader/Writer support?
+
+• Interrupt-safe?
+
+• Typical use case?
+
+Q4
+
+Explain Linux Kernel timers.
+
+Include:
+
+timer_setup()
+
+mod_timer()
+
+del_timer_sync()
+
+Difference between timers and workqueues.
+
+Q5
+
+Explain kernel tracing tools.
+
+Compare:
+
+• ftrace
+
+• trace-cmd
+
+• perf
+
+• eBPF (overview)
+
+• debugfs
+
+When would you use each?
+
+Set 10
+
+Q1
+
+Explain Linux Kernel synchronization.
+
+Compare:
+
+• Spinlock
+
+• Raw Spinlock
+
+• Mutex
+
+• Completion
+
+• RCU
+
+• SRCU
+
+For each:
+
+• Sleep?
+
+• IRQ-safe?
+
+• Performance
+
+• Typical use case
+
+Q2
+
+Explain:
+
+struct device
+
+Important members:
+
+• driver
+
+• parent
+
+• kobject
+
+• dma_mask
+
+• of_node
+
+• release
+
+Explain how it fits into the Linux driver model.
+
+Q3
+
+Explain the Linux DMA API flow:
+
+Application
+
+↓
+
+copy_from_user()
+
+↓
+
+DMA Buffer
+
+↓
+
+DMA Engine
+
+↓
+
+Hardware
+
+↓
+
+Interrupt
+
+↓
+
+copy_to_user()
+
+Where can failures occur, and how would you debug them?
+
+Q4
+
+Explain Linux kernel debugging tools.
+
+Compare:
+
+• dynamic_debug
+
+• debugfs
+
+• ftrace
+
+• trace-cmd
+
+• perf
+
+• lockdep
+
+Give one real-world use case for each.
+
+Q5
+
+Explain memory corruption bugs.
+
+Compare:
+
+• Buffer overflow
+
+• Use-after-free
+
+• Double free
+
+• Memory leak
+
+• Stack overflow
+
+Which kernel debugging features help detect each?
+
+------------------------------------------------------------------------
+
+Linux Device Drivers
+
+Set 1
+
+Q1
+
+Explain the flow of a character device driver from module_init() to
+module_exit().
+
+Q2
+
+What is struct file_operations?
+
+Q3
+
+Explain the purpose of open(), read(), write(), release(), and
+unlocked_ioctl().
+
+Q4
+
+What is the difference between kmalloc() and vmalloc()?
+
+Q5
+
+Explain the purpose of ioremap().
+
+Set 2
+
+Q1
+
+Explain the complete flow of
+
+open()
+
+↓
+
+read()
+
+↓
+
+poll()
+
+↓
+
+ioctl()
+
+↓
+
+release()
+
+Q2
+
+Difference between
+
+request_irq()
+
+request_threaded_irq()
+
+When should each be used?
+
+Q3
+
+Explain
+
+devm_kzalloc()
+
+vs
+
+kmalloc()
+
+Advantages?
+
+Q4
+
+Write the sequence to register a character driver.
+
+Include:
+
+-   alloc_chrdev_region()
+-   cdev_init()
+-   cdev_add()
+-   class_create()
+-   device_create()
+
+Q5
+
+What is
+
+mmap()
+
+How is it implemented inside a Linux driver?
+
+Set 3
+
+Q1
+
+Write a flow diagram for
+
+Platform Driver Probe()
+
+Include
+
+-   Device Tree
+-   compatible string
+-   match table
+-   probe()
+-   remove()
+
+Q2
+
+Explain
+
+of_property_read_u32()
+
+of_property_read_string()
+
+of_property_read_bool()
+
+Q3
+
+Difference between
+
+read()
+
+mmap()
+
+Which is faster?
+
+Why?
+
+Q4
+
+Explain
+
+poll_wait()
+
+When is it used?
+
+Q5
+
+How does
+
+select()
+
+poll()
+
+epoll()
+
+interact with a Linux driver?
+
+Set 4
+
+Q1
+
+Write the complete PCI Driver Probe Flow:
+
+pci_register_driver()
+
+↓
+
+PCI Match Table
+
+↓
+
+probe()
+
+↓
+
+pci_enable_device()
+
+↓
+
+pci_request_regions()
+
+↓
+
+pci_iomap()
+
+↓
+
+request_irq()
+
+↓
+
+DMA Init
+
+Explain every API.
+
+Q2
+
+Difference between:
+
+read()
+
+ioctl()
+
+mmap()
+
+Which one is preferred for:
+
+-   Configuration
+-   Large data transfer
+-   Streaming video
+
+Q3
+
+Explain:
+
+dma_map_single()
+
+dma_sync_single_for_cpu()
+
+dma_sync_single_for_device()
+
+dma_unmap_single()
+
+When should each be used?
+
+Q4
+
+Explain:
+
+devm_request_irq()
+
+vs
+
+request_irq()
+
+Advantages?
+
+Q5
+
+Suppose your driver's probe() fails halfway.
+
+How should resources be released?
+
+Explain:
+
+-   goto cleanup pattern
+-   devm_* APIs
+
+Set 5
+
+Q1
+
+Write a Linux Character Driver supporting:
+
+open()
+
+release()
+
+read()
+
+write()
+
+poll()
+
+mmap()
+
+ioctl()
+
+Only function prototypes and driver flow are required.
+
+Q2
+
+Explain:
+
+request_mem_region()
+
+ioremap()
+
+readl()
+
+writel()
+
+iounmap()
+
+Q3
+
+Write the complete DMA receive flow.
+
+Device
+
+↓
+
+DMA Engine
+
+↓
+
+RAM
+
+↓
+
+Interrupt
+
+↓
+
+ISR
+
+↓
+
+Wake User
+
+↓
+
+read()
+
+Explain every stage.
+
+Q4
+
+Difference between
+
+Platform Driver
+
+PCI Driver
+
+USB Driver
+
+I2C Driver
+
+SPI Driver
+
+Q5
+
+Your probe function fails after:
+
+request_irq()
+
+↓
+
+DMA allocation
+
+↓
+
+Character device creation
+
+↓
+
+sysfs creation
+
+How do you clean up resources?
+
+Set 6
+
+Q1
+
+Write the flow of a PCI driver:
+
+pci_register_driver()
+
+↓
+
+probe()
+
+↓
+
+BAR Mapping
+
+↓
+
+DMA
+
+↓
+
+Interrupt
+
+↓
+
+Character Device
+
+↓
+
+User Space
+
+Explain each API.
+
+Q2
+
+Explain:
+
+poll()
+
+select()
+
+epoll()
+
+How should a driver support them?
+
+Q3
+
+Explain DMA cache coherency.
+
+Questions:
+
+-   Why is cache flushing needed?
+-   What happens if cache isn't synchronized?
+-   Difference between coherent and streaming DMA.
+
+Q4
+
+Write a pseudo-code driver supporting:
+
+-   Interrupt
+-   DMA
+-   Wait Queue
+-   poll()
+-   ioctl()
+
+Focus on architecture rather than full code.
+
+Q5
+
+Your driver occasionally crashes with:
+
+Kernel NULL Pointer Dereference
+
+Explain your debugging process using:
+
+-   dmesg
+-   addr2line
+-   objdump
+-   gdb
+-   crash
+-   ftrace
+
+Set 7
+
+Q1
+
+Write the architecture of a PCIe character driver.
+
+Include:
+
+PCI Device
+
+↓
+
+BAR Mapping
+
+↓
+
+DMA
+
+↓
+
+Interrupt
+
+↓
+
+Character Device
+
+↓
+
+User Space
+
+Explain every layer.
+
+Q2
+
+Explain:
+
+copy_from_user()
+
+copy_to_user()
+
+access_ok()
+
+Why must drivers never directly dereference user pointers?
+
+Q3
+
+Your interrupt handler occasionally misses interrupts.
+
+How would you debug it?
+
+Discuss:
+
+• /proc/interrupts
+
+• request_threaded_irq()
+
+• Shared IRQs
+
+• Interrupt affinity
+
+• ISR execution time
+
+Q4
+
+Explain Linux wait queues.
+
+Write pseudo-code using:
+
+wait_event_interruptible()
+
+wake_up_interruptible()
+
+Q5
+
+Your DMA transfer occasionally corrupts data.
+
+List at least 10 possible reasons and how you would investigate each one.
+
+Set 8
+
+Q1
+
+Write pseudo-code for:
+
+PCI Driver
+
+↓
+
+DMA Initialization
+
+↓
+
+Interrupt Registration
+
+↓
+
+Character Device
+
+↓
+
+User Read()
+
+Q2
+
+Explain
+
+struct pci_driver
+
+Members:
+
+• name
+
+• id_table
+
+• probe
+
+• remove
+
+Q3
+
+Difference between
+
+ioread32()
+
+readl()
+
+memcpy_fromio()
+
+Q4
+
+Your driver reports:
+
+DMA timeout
+
+List at least 12 possible reasons.
+
+Examples:
+
+• Wrong DMA mask
+
+• Cache issue
+
+• Missing interrupt
+
+• BAR mapping error
+
+Continue until you reach twelve.
+
+Q5
+
+Write the complete cleanup flow.
+
+remove()
+
+↓
+
+free_irq()
+
+↓
+
+DMA Cleanup
+
+↓
+
+iounmap()
+
+↓
+
+pci_release_regions()
+
+↓
+
+pci_disable_device()
+
+Set 9
+
+Q1
+
+Write the architecture of a V4L2 capture driver.
+
+Include:
+
+Camera Sensor
+
+↓
+
+I2C Driver
+
+↓
+
+V4L2 Subdevice
+
+↓
+
+Media Controller
+
+↓
+
+Video Node
+
+↓
+
+Application
+
+Explain each layer.
+
+Q2
+
+Explain:
+
+struct file_operations
+
+Describe every commonly used callback and when the kernel invokes it.
+
+Q3
+
+Your driver occasionally deadlocks.
+
+Explain how you would debug:
+
+• Lock ordering
+
+• Lockdep
+
+• ftrace
+
+• Stack traces
+
+• Atomic context
+
+Q4
+
+Write pseudo-code for a driver using:
+
+• DMA
+
+• Interrupt
+
+• Wait Queue
+
+• Workqueue
+
+• poll()
+
+Show the interaction between them.
+
+Q5
+
+Explain Linux Runtime Power Management.
+
+Include:
+
+pm_runtime_enable()
+
+pm_runtime_get_sync()
+
+pm_runtime_put_autosuspend()
+
+Set 10
+
+Q1
+
+Write the architecture of a V4L2 camera driver.
+
+Include:
+
+Sensor Driver (I2C)
+
+↓
+
+V4L2 Subdevice
+
+↓
+
+Media Controller
+
+↓
+
+Capture Driver
+
+↓
+
+Video Node
+
+↓
+
+User Space
+
+Explain the responsibility of each layer.
+
+Q2
+
+Explain:
+
+devm_kmalloc()
+
+devm_request_irq()
+
+devm_ioremap_resource()
+
+Why are managed (devm_*) APIs preferred?
+
+Q3
+
+Your driver's probe() succeeds, but:
+
+• read() blocks forever.
+
+• Interrupts are occurring.
+
+List at least 10 possible causes and how to debug each.
+
+Q4
+
+Write pseudo-code for a driver using:
+
+• kthread
+
+• Wait Queue
+
+• Interrupt
+
+• DMA
+
+• poll()
+
+Show how data flows through the system.
+
+Q5
+
+Explain suspend and resume callbacks.
+
+What should a PCIe driver do during:
+
+• suspend()
+
+• resume()
+
+------------------------------------------------------------------------
+
+PCIe & DMA
+
+Set 1
+
+Q1
+
+What are PCIe BARs, and how are they used?
+
+Q2
+
+Explain the difference between coherent DMA and streaming DMA.
+
+Set 2
+
+Q1
+
+PCIe Enumeration
+
+Explain:
+
+-   Root Complex
+-   Endpoint
+-   Bus Number
+-   Device Number
+-   Function Number
+
+How does Linux discover PCIe devices during boot?
+
+Q2
+
+Explain the complete DMA mapping flow.
+
+Include:
+
+-   dma_set_mask()
+-   dma_alloc_coherent()
+-   dma_map_single()
+-   dma_unmap_single()
+
+When should each API be used?
+
+Set 3
+
+Q1
+
+Explain PCIe Configuration Space.
+
+Include
+
+-   Vendor ID
+-   Device ID
+-   BAR
+-   Command Register
+-   Status Register
+-   Class Code
+
+Q2
+
+Write the complete DMA data flow
+
+Application
+
+↓
+
+Driver
+
+↓
+
+DMA Mapping
+
+↓
+
+PCIe Device
+
+↓
+
+Memory
+
+↓
+
+Interrupt
+
+↓
+
+Driver
+
+↓
+
+Application
+
+Explain each stage.
+
+Set 4
+
+Q1
+
+Explain:
+
+-   MSI
+-   MSI-X
+-   Legacy INTx
+
+Compare:
+
+-   Number of vectors
+-   Performance
+-   Use cases
+
+Q2
+
+Explain the following PCIe packet types:
+
+-   Memory Read
+-   Memory Write
+-   Completion TLP
+-   Configuration Read
+-   Configuration Write
+
+Which packets are generated during driver initialization?
+
+Set 5
+
+Q1
+
+Explain:
+
+PCIe BAR
+
+BAR0
+
+BAR1
+
+BAR2
+
+64-bit BAR
+
+Prefetchable BAR
+
+Questions:
+
+-   How does Linux detect BAR size?
+-   What happens when BAR is written with 0xFFFFFFFF?
+
+Q2
+
+Explain PCIe Transaction Layer Packets.
+
+Cover:
+
+-   Header
+-   Payload
+-   CRC
+-   Completion
+-   Flow Control
+
+Set 6
+
+Q1
+
+Explain PCIe Link Training.
+
+Include:
+
+-   LTSSM
+-   Gen1–Gen6
+-   Lane Width
+-   Equalization
+-   Retraining
+
+How can Linux verify the negotiated speed?
+
+Q2
+
+Explain Scatter-Gather DMA.
+
+Questions:
+
+-   Why is it needed?
+-   What is an SG List?
+-   How does the DMA engine process it?
+-   Advantages over contiguous DMA.
+
+Set 7
+
+Q1
+
+Explain PCIe initialization from power-on until the driver's probe() is called.
+
+Include:
+
+• LTSSM
+
+• Enumeration
+
+• Configuration Space
+
+• BAR allocation
+
+• Driver matching
+
+Q2
+
+Explain MSI-X in detail.
+
+Topics:
+
+• MSI-X Table
+
+• PBA (Pending Bit Array)
+
+• Interrupt vectors
+
+• Advantages over MSI
+
+• Why high-performance NICs and GPUs use MSI-X
+
+Set 8
+
+Q1
+
+Explain the complete PCIe configuration space.
+
+Include:
+
+• Vendor ID
+
+• Device ID
+
+• Command Register
+
+• Status Register
+
+• Revision
+
+• BAR0–BAR5
+
+• MSI Capability
+
+• MSI-X Capability
+
+Q2
+
+Explain Scatter-Gather DMA.
+
+Draw:
+
+Application
+
+↓
+
+Driver
+
+↓
+
+SG List
+
+↓
+
+DMA Engine
+
+↓
+
+PCIe Device
+
+Advantages?
+
+Set 9
+
+Q1
+
+Explain PCIe Address Translation.
+
+Include:
+
+• CPU Physical Address
+
+• BAR
+
+• MMIO
+
+• IOMMU (overview)
+
+• DMA Address
+
+How does the device access system memory?
+
+Q2
+
+Explain the DMA Engine Framework.
+
+Include:
+
+• DMA Channels
+
+• DMA Descriptor
+
+• Cookie
+
+• Completion Callback
+
+• Scatter-Gather Support
+
+Set 10
+
+Q1
+
+Explain PCIe interrupt mechanisms.
+
+Compare:
+
+• Legacy INTx
+
+• MSI
+
+• MSI-X
+
+Include:
+
+• Number of vectors
+
+• Performance
+
+• Typical devices
+
+• Linux APIs used
+
+Q2
+
+A PCIe endpoint is detected by lspci, but DMA transfers never complete.
+
+Describe your complete debugging checklist.
+
+Include:
+
+• BAR verification
+
+• DMA mask
+
+• IOMMU
+
+• Interrupts
+
+• Cache coherency
+
+• Device registers
+
+------------------------------------------------------------------------
+
+Multimedia
+
+Set 1
+
+Q1
+
+Explain the V4L2 video capture pipeline.
+
+Q2
+
+What is the difference between a GStreamer element, pad, and pipeline?
+
+Set 2
+
+Q1
+
+Draw and explain the V4L2 pipeline:
+
+Sensor
+
+↓
+
+CSI
+
+↓
+
+VI
+
+↓
+
+ISP
+
+↓
+
+Memory
+
+↓
+
+V4L2
+
+↓
+
+Application
+
+Explain the role of each stage.
+
+Q2
+
+Explain the following GStreamer elements:
+
+-   filesrc
+-   v4l2src
+-   videoconvert
+-   capsfilter
+-   nvvidconv
+-   nvv4l2h264enc
+-   h264parse
+-   mp4mux
+-   filesink
+
+Also explain how data flows through a pipeline.
+
+Set 3
+
+Q1
+
+Explain the following V4L2 APIs:
+
+VIDIOC_QUERYCAP
+
+VIDIOC_ENUM_FMT
+
+VIDIOC_REQBUFS
+
+VIDIOC_QUERYBUF
+
+VIDIOC_QBUF
+
+VIDIOC_STREAMON
+
+VIDIOC_DQBUF
+
+VIDIOC_STREAMOFF
+
+Explain the sequence in which they are typically called.
+
+Q2
+
+Explain this GStreamer pipeline completely:
+
+gst-launch-1.0 \
+
+v4l2src \
+
+! videoconvert \
+
+! x264enc \
+
+! mp4mux \
+
+! filesink location=test.mp4
+
+Explain the role of every element.
+
+Set 4
+
+Q1 – V4L2
+
+Explain the complete buffer lifecycle:
+
+VIDIOC_REQBUFS
+
+↓
+
+VIDIOC_QUERYBUF
+
+↓
+
+mmap()
+
+↓
+
+VIDIOC_QBUF
+
+↓
+
+VIDIOC_STREAMON
+
+↓
+
+VIDIOC_DQBUF
+
+↓
+
+Process Frame
+
+↓
+
+VIDIOC_QBUF
+
+Why is this design efficient?
+
+Q2 – GStreamer / FFmpeg
+
+Explain this pipeline:
+
+gst-launch-1.0 \
+
+v4l2src \
+
+! video/x-raw,width=1920,height=1080 \
+
+! nvvidconv \
+
+! nvv4l2h264enc \
+
+! h264parse \
+
+! qtmux \
+
+! filesink location=test.mp4
+
+Questions:
+
+-   Which stage uses hardware acceleration?
+-   Which stage performs color conversion?
+-   Which stage compresses the video?
+-   Where is DMA involved on Jetson?
+
+Set 5
+
+Q1
+
+Explain the Linux Media Controller Framework.
+
+Sensor
+
+↓
+
+CSI
+
+↓
+
+ISP
+
+↓
+
+Scaler
+
+↓
+
+Video Node
+
+Questions:
+
+-   What is a Media Entity?
+-   What is a Pad?
+-   What is a Link?
+
+Q2
+
+Explain this FFmpeg command completely.
+
+ffmpeg \
+
+-f v4l2 \
+
+-i /dev/video0 \
+
+-c:v h264_nvenc \
+
+-b:v 10M \
+
+output.mp4
+
+Explain:
+
+-   Input
+-   Decoder
+-   Encoder
+-   Bitrate
+-   Container
+
+Set 6
+
+Q1 – V4L2
+
+Explain memory types:
+
+V4L2_MEMORY_MMAP
+
+V4L2_MEMORY_USERPTR
+
+V4L2_MEMORY_DMABUF
+
+Compare:
+
+-   Performance
+-   CPU usage
+-   Zero-copy capability
+-   Typical applications
+
+Q2 – GStreamer / FFmpeg
+
+Explain this Jetson pipeline:
+
+gst-launch-1.0 \
+
+nvarguscamerasrc \
+
+! nvvidconv \
+
+! nvv4l2h264enc \
+
+! rtph264pay \
+
+! udpsink host=<receiver_ip> port=5000
+
+Answer:
+
+-   Which element interfaces with the camera?
+-   Where is hardware encoding performed?
+-   Where is zero-copy used?
+-   What changes if videoconvert replaces nvvidconv?
+
+Set 7
+
+Q1 – V4L2
+
+Explain the complete V4L2 capture flow.
+
+Include:
+
+open()
+
+↓
+
+VIDIOC_QUERYCAP
+
+↓
+
+VIDIOC_ENUM_FMT
+
+↓
+
+VIDIOC_S_FMT
+
+↓
+
+VIDIOC_REQBUFS
+
+↓
+
+VIDIOC_QUERYBUF
+
+↓
+
+mmap()
+
+↓
+
+VIDIOC_QBUF
+
+↓
+
+VIDIOC_STREAMON
+
+↓
+
+VIDIOC_DQBUF
+
+↓
+
+Frame Processing
+
+↓
+
+VIDIOC_QBUF
+
+↓
+
+STREAMOFF
+
+For each step:
+
+• Purpose
+
+• Driver callback
+
+• Kernel subsystem involved
+
+Q2 – GStreamer / FFmpeg
+
+Explain the difference between:
+
+• videoconvert
+
+• nvvidconv
+
+• x264enc
+
+• nvv4l2h264enc
+
+• avdec_h264
+
+• decodebin
+
+Which are CPU-based and which use Jetson hardware acceleration?
+
+Set 8
+
+Q1
+
+Explain the Jetson Camera Pipeline.
+
+Sensor
+
+↓
+
+CSI
+
+↓
+
+NVCSI
+
+↓
+
+VI
+
+↓
+
+ISP
+
+↓
+
+Argus
+
+↓
+
+V4L2
+
+↓
+
+GStreamer
+
+↓
+
+Encoder
+
+↓
+
+Display
+
+For each block explain:
+
+• Hardware
+
+• Driver
+
+• User-space interface
+
+Q2
+
+Explain this pipeline.
+
+gst-launch-1.0 \
+
+nvarguscamerasrc \
+
+! video/x-raw(memory:NVMM),width=1920,height=1080 \
+
+! nvvidconv \
+
+! nvv4l2h264enc \
+
+! h264parse \
+
+! rtph264pay \
+
+! udpsink host=<receiver_ip> port=5000
+
+Questions:
+
+• Why use memory:NVMM?
+
+• Where does zero-copy happen?
+
+• Which stage uses hardware acceleration?
+
+Set 9
+
+Q1
+
+Explain the Linux Media Controller framework.
+
+Define:
+
+• Media Device
+
+• Entity
+
+• Pad
+
+• Link
+
+• Pipeline
+
+Why is it useful for complex camera systems?
+
+Q2
+
+Explain this Jetson pipeline:
+
+gst-launch-1.0 \
+
+nvarguscamerasrc \
+
+! nvvidconv \
+
+! nvv4l2h265enc \
+
+! h265parse \
+
+! matroskamux \
+
+! filesink location=video.mkv
+
+Questions:
+
+• Why H.265 instead of H.264?
+
+• Which stage performs color conversion?
+
+• Where is hardware encoding used?
+
+• What changes if software encoding is used instead?
+
+Set 10
+
+Q1 – V4L2
+
+Explain buffer management.
+
+Compare:
+
+• MMAP
+
+• USERPTR
+
+• DMABUF
+
+Which would you choose for:
+
+• High-performance camera capture
+
+• CPU image processing
+
+• Zero-copy GPU pipeline
+
+Justify your choices.
+
+Q2 – GStreamer / FFmpeg
+
+Explain this Jetson pipeline:
+
+gst-launch-1.0 \
+
+nvarguscamerasrc \
+
+! video/x-raw(memory:NVMM),width=3840,height=2160 \
+
+! nvvidconv \
+
+! nvv4l2h265enc \
+
+! h265parse \
+
+! qtmux \
+
+! filesink location=4k_output.mp4
+
+Explain:
+
+• NVMM memory
+
+• Zero-copy
+
+• Hardware encoder
+
+• Why H.265 is chosen for 4K
+
+• Potential performance bottlenecks
+
+------------------------------------------------------------------------
+
+Jetson Orin NX Practical
+
+Set 1
+
+Run the following and explain the output:
+
+-   v4l2-ctl --list-devices
+-   v4l2-ctl --all
+
+If you don't have the board with you today, explain what information
+these commands provide and why they're useful.
+
+Set 2
+
+On your Jetson, run the following commands and save the output:
+
+uname -a
+
+cat /etc/nv_tegra_release
+
+lsmod | grep nv
+
+v4l2-ctl --list-devices
+
+media-ctl -p
+
+For each command, write:
+
+-   What it does.
+-   Why it's useful during camera and multimedia driver development.
+
+Set 3
+
+Run:
+
+cat /proc/device-tree/model
+
+cat /proc/device-tree/compatible
+
+dmesg | grep -i tegra
+
+ls /sys/bus/platform/drivers/
+
+Write:
+
+-   What each command shows.
+-   How it helps during camera or driver bring-up.
+
+Set 4
+
+Run these commands:
+
+lspci -vv
+
+cat /proc/iomem
+
+cat /proc/interrupts
+
+cat /sys/kernel/debug/dma_buf/bufinfo
+
+(If dma_buf* isn't available, note that and explain why.)*
+
+Write:
+
+1.  What each command displays.
+2.  How it helps in PCIe, DMA, or multimedia debugging.
+
+Set 5
+
+Run:
+
+cat /proc/cpuinfo
+
+cat /proc/meminfo
+
+cat /proc/interrupts
+
+cat /sys/kernel/debug/clk/clk_summary
+
+tegrastats
+
+Write:
+
+1.  CPU information
+2.  Memory information
+3.  Interrupt count
+4.  Clock frequencies
+5.  GPU utilization
+6.  RAM usage
+
+Explain why each is useful during multimedia performance analysis.
+
+Set 6
+
+Run these commands:
+
+ls /dev/video*
+
+v4l2-ctl --list-formats-ext -d /dev/video0
+
+gst-inspect-1.0 nvarguscamerasrc
+
+gst-inspect-1.0 nvv4l2h264enc
+
+cat /sys/kernel/debug/tracing/available_tracers
+
+Write:
+
+1.  Output summary.
+2.  Purpose of each command.
+3.  How each helps during camera driver development.
+
+Set 7
+
+Run:
+
+sudo dmesg | grep -i pci
+
+sudo dmesg | grep -i dma
+
+sudo dmesg | grep -i irq
+
+lspci -tv
+
+cat /proc/interrupts
+
+Write:
+
+1. What each command shows.
+
+2. How it helps debug PCIe, DMA, or interrupt issues.
+
+Set 8
+
+Run:
+
+cat /sys/kernel/debug/tracing/trace
+
+cat /sys/kernel/debug/tracing/current_tracer
+
+echo function > /sys/kernel/debug/tracing/current_tracer
+
+cat /sys/kernel/debug/tracing/available_filter_functions | head
+
+Explain:
+
+• What is ftrace?
+
+• Why is it useful for driver debugging?
+
+• When would you choose function_graph instead of function tracing?
+
+Set 9
+
+Run and explain:
+
+media-ctl -p
+
+v4l2-ctl --all
+
+ls /sys/class/video4linux/
+
+cat /proc/device-tree/model
+
+cat /proc/device-tree/compatible
+
+Write:
+
+1. What each command displays.
+
+2. How it helps during camera driver bring-up.
+
+3. Which command is most useful for debugging media pipelines.
+
+Set 10
+
+Run and explain:
+
+cat /sys/kernel/debug/tracing/available_events | head -20
+
+cat /sys/kernel/debug/tracing/trace_clock
+
+cat /proc/slabinfo | head -20
+
+cat /proc/vmallocinfo | head -20
+
+cat /proc/buddyinfo
+
+For each command:
+
+1. What information does it provide?
+
+2. When would you use it during kernel or driver debugging?
+
+------------------------------------------------------------------------
+
+NVIDIA Challenges
+
+Set 3
+
+You have worked on PCIe, DMA, CSI, V4L2, and GStreamer.
+
+Explain this complete pipeline in detail:
+
+Camera Sensor
+
+-   │*
+
+-   ▼*
+
+CSI
+
+-   │*
+
+-   ▼*
+
+VI
+
+-   │*
+
+-   ▼*
+
+DMA Engine
+
+-   │*
+
+-   ▼*
+
+Memory
+
+-   │*
+
+-   ▼*
+
+V4L2 Driver
+
+-   │*
+
+-   ▼*
+
+GStreamer
+
+-   │*
+
+-   ▼*
+
+H.264 Encoder
+
+-   │*
+
+-   ▼*
+
+Display / File
+
+For each stage, answer:
+
+-   What hardware is involved?
+-   Which kernel subsystem handles it?
+-   Which driver APIs are used?
+-   Where does DMA occur?
+-   Where are interrupts generated?
+-   What user-space APIs interact with it?
+
+Set 4
+
+Your camera application captures frames correctly, but after 15 minutes:
+
+-   Frame drops begin.
+-   CPU usage rises to 100%.
+-   Eventually the application freezes.
+
+Explain how you would debug this using:
+
+-   top
+-   htop
+-   perf
+-   ftrace
+-   dmesg
+-   /proc/interrupts
+-   vmstat
+-   iostat
+-   strace
+
+Describe the order in which you'd use these tools and what you'd expect
+to find.
+
+Set 5
+
+Imagine your PCIe camera driver works correctly, but after about 30
+minutes:
+
+-   Frame rate drops from 60 FPS to 25 FPS
+-   CPU usage reaches 95%
+-   Interrupt count increases rapidly
+-   DMA completion interrupts are delayed
+
+Task: Explain, step by step, how you would debug this issue.
+
+Your answer should include:
+
+-   dmesg
+-   /proc/interrupts
+-   perf
+-   ftrace
+-   trace-cmd
+-   vmstat
+-   iostat
+-   top
+-   htop
+-   lspci -vv
+-   PCIe link speed verification
+-   DMA ring buffer inspection
+
+Set 6
+
+Your application streams 4K@60 FPS from a CSI camera.
+
+After 20 minutes:
+
+-   FPS drops to 35.
+-   CPU usage increases.
+-   Encoder latency increases.
+-   No kernel crash.
+-   DMA interrupts are still arriving.
+
+Explain your complete debugging plan.
+
+Cover:
+
+-   tegrastats
+-   perf
+-   ftrace
+-   trace-cmd
+-   v4l2-ctl
+-   gst-shark (if available)
+-   top
+-   vmstat
+-   /proc/interrupts
+-   dmesg
+
+Explain what each tool tells you and what you would conclude from the
+results.
+
+Set 7
+
+Answer these without looking at notes.
+
+1. Why can't you call kmalloc(GFP_KERNEL) inside an interrupt handler?
+
+2. Why is copy_to_user() required?
+
+3. Difference between coherent and streaming DMA.
+
+4. Explain the purpose of a PCIe BAR.
+
+5. Why is container_of() used so extensively in the Linux kernel?
+
+6. Explain the difference between poll() and epoll().
+
+7. What happens internally when insmod driver.ko is executed?
+
+8. Why would a driver use a workqueue instead of doing all work inside the ISR?
+
+9. How does V4L2 avoid unnecessary frame copies?
+
+10. If a camera drops frames only under heavy CPU load, what are your first five debugging steps?
+
+Set 8
+
+Answer without notes.
+
+1. Explain the complete path of read() from user space to hardware.
+
+2. Why can't a mutex be used in an interrupt handler?
+
+3. Why does Linux use container_of() everywhere?
+
+4. Difference between coherent DMA and streaming DMA.
+
+5. Explain the complete PCIe probe sequence.
+
+6. How does V4L2 achieve zero-copy using DMABUF?
+
+7. Why does poll() scale better than repeatedly calling read()?
+
+8. Explain the difference between MSI and MSI-X.
+
+9. How would you debug a kernel panic caused by your driver?
+
+10. Your camera loses every 10th frame. How would you investigate?
+
+Set 8
+
+Implement a thread-safe circular buffer using:
+
+• pthread_mutex_t
+
+• pthread_cond_t
+
+Support:
+
+• Producer thread
+
+• Consumer thread
+
+This is excellent practice for understanding kernel producer-consumer patterns.
+
+Set 9
+
+Answer these in 2–3 minutes each, as if you're speaking to an interviewer:
+
+1. Explain the complete path of a camera frame from the image sensor to user space.
+
+2. What is the purpose of the Media Controller framework?
+
+3. Why is dma_alloc_coherent() used instead of kmalloc() for DMA buffers?
+
+4. Explain how Linux matches a platform driver using the Device Tree.
+
+5. What is the difference between copy_from_user() and memcpy()?
+
+6. Why are workqueues preferred over doing all processing in an ISR?
+
+7. Explain coherent vs streaming DMA with examples.
+
+8. A PCIe device is detected by lspci, but probe() is never called. List possible reasons.
+
+9. Your V4L2 driver captures only half the image. What would you investigate?
+
+10. Describe your debugging approach for a kernel panic caused by your driver.
+
+Set 9
+
+Write a skeleton Linux platform driver that includes:
+
+• module_init()
+
+• module_exit()
+
+• Device Tree match table
+
+• probe()
+
+• remove()
+
+No hardware access is required—focus on the correct structure.
+
+Set 10
+
+Answer these in your own words:
+
+1. Explain the complete Linux driver model.
+
+2. Why does Linux separate struct device and struct device_driver?
+
+3. How does DMA improve CPU performance?
+
+4. Explain the difference between MMIO and Port I/O.
+
+5. Why are workqueues useful in multimedia drivers?
+
+6. How would you debug a memory leak in a kernel driver?
+
+7. A V4L2 application hangs at VIDIOC_DQBUF. What would you check?
+
+8. Why is devm_kmalloc() safer than kmalloc()?
+
+9. Explain the role of the Media Controller framework on Jetson.
+
+10. Your PCIe driver works on one board but fails on another. Outline your debugging approach.
+
+Set 10
+
+Write a skeleton PCIe driver that includes:
+
+• pci_driver
+
+• PCI Device ID table
+
+• probe()
+
+• remove()
+
+• BAR mapping
+
+• IRQ registration
+
+• Character device registration
+
+No hardware-specific code is required. Focus on the correct initialization and cleanup sequence.
+
+------------------------------------------------------------------------
+
+Reading Assignments
+
+Set 5
+
+Read about these kernel APIs and be ready to explain them tomorrow:
+
+-   container_of()
+-   list_head
+-   completion
+-   wait_event()
+-   dma_alloc_coherent()
+-   dma_map_single()
+-   request_threaded_irq()
+-   devm_kzalloc()
+
+Set 6
+
+Study these kernel APIs today:
+
+-   dmaengine_submit()
+-   wait_for_completion()
+-   complete()
+-   spin_lock_irqsave()
+-   spin_unlock_irqrestore()
+-   list_for_each_entry()
+-   kfifo
+-   debugfs
+
+Set 7
+
+Study these kernel APIs:
+
+• pci_enable_device()
+
+• pci_request_regions()
+
+• pci_iomap()
+
+• pci_set_master()
+
+• dma_set_mask_and_coherent()
+
+• pci_alloc_irq_vectors()
+
+• pci_free_irq_vectors()
+
+• wait_event_timeout()
+
+Set 8
+
+Study these APIs today:
+
+• pci_iomap()
+
+• pci_iounmap()
+
+• dma_map_sg()
+
+• dma_unmap_sg()
+
+• request_threaded_irq()
+
+• disable_irq()
+
+• enable_irq()
+
+• debugfs_create_file()
+
+Set 9
+
+Study these kernel APIs:
+
+• of_match_device()
+
+• platform_get_resource()
+
+• devm_ioremap_resource()
+
+• dmaengine_prep_slave_sg()
+
+• dma_async_issue_pending()
+
+• complete_all()
+
+• wait_for_completion_timeout()
+
+• kthread_run()
+
+Set 10
+
+Study these APIs:
+
+• of_property_read_u32()
+
+• of_parse_phandle()
+
+• platform_get_irq()
+
+• request_irq()
+
+• disable_irq_nosync()
+
+• dma_sync_single_for_cpu()
+
+• dma_sync_single_for_device()
+
+• kfifo
+
+------------------------------------------------------------------------
